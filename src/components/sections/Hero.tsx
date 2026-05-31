@@ -61,15 +61,6 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl px-6 pb-24">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="label"
-        >
-          PAWAAC Drones — Bengaluru, India
-        </motion.p>
-
         <h1 className="mt-4 max-w-3xl font-display text-5xl font-bold leading-[1.05] text-fg md:text-7xl lg:text-8xl">
           {HEADLINE.map((w, i) => (
             <motion.span
