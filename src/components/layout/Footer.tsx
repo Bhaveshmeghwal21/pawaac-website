@@ -6,9 +6,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2.5 text-fg">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-fg">
-              <Logo className="h-5 w-5 text-bg" />
-            </span>
+            <Logo className="h-7 w-7" />
             <span className="font-display text-lg font-bold text-fg">PAWAAC</span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted">

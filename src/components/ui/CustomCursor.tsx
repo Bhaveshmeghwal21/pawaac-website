@@ -51,17 +51,17 @@ export default function CustomCursor() {
 
   if (!fine) return null;
 
-  const size = variant === "hover" ? 44 : variant === "crosshair" ? 30 : 26;
+  const size = variant === "hover" ? 48 : variant === "crosshair" ? 36 : 34;
 
   return (
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] -ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-red"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] -ml-[5px] -mt-[5px] h-2.5 w-2.5 rounded-full bg-red shadow-[0_0_0_2px_rgba(240,237,232,0.7)]"
       />
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] flex items-center justify-center rounded-full border border-fg/50 transition-[width,height,background-color] duration-200"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] flex items-center justify-center rounded-full border-2 transition-[width,height,background-color] duration-200"
         style={{
           width: size,
           height: size,
@@ -69,7 +69,7 @@ export default function CustomCursor() {
           marginTop: -size / 2,
           backgroundColor:
             variant === "hover" ? "rgba(232,32,42,0.2)" : "transparent",
-          borderColor: variant === "crosshair" ? "#e8202a" : "rgba(240,237,232,0.5)",
+          borderColor: variant === "crosshair" ? "#e8202a" : "rgba(240,237,232,0.85)",
         }}
       >
         {variant === "crosshair" && (

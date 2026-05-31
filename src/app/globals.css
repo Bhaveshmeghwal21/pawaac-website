@@ -65,3 +65,11 @@ body {
   50% { opacity: 0.4; transform: scale(0.8); }
 }
 .animate-pulse-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
+
+/* Dark basemap: filter the raster tiles only, never the red overlays */
+.map-dark .leaflet-tile {
+  filter: grayscale(1) invert(1) brightness(0.95) contrast(0.9);
+}
+.map-dark.leaflet-container {
+  background: var(--color-bg);
+}

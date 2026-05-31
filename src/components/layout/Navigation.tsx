@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import Logo from "@/components/ui/Logo";
 
 const LINKS = [
-  { label: "Technology", href: "#technology" },
-  { label: "Vision AI", href: "#vision-ai" },
-  { label: "Deployments", href: "#deployments" },
-  { label: "Contact", href: "#contact" },
+  { label: "Technology", href: "/#technology" },
+  { label: "Vision AI", href: "/#vision-ai" },
+  { label: "Deployments", href: "/#deployments" },
+  { label: "Planner", href: "/designer" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Navigation() {
@@ -29,10 +30,8 @@ export default function Navigation() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <a href="#top" className="flex items-center gap-2.5 text-fg">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-fg">
-            <Logo className="h-5 w-5 text-bg" />
-          </span>
+        <a href="/#top" className="flex items-center gap-2.5 text-fg">
+          <Logo className="h-7 w-7" />
           <span className="font-display text-lg font-bold tracking-tight text-fg">
             PAWAAC
           </span>
@@ -53,7 +52,7 @@ export default function Navigation() {
         </ul>
 
         <a
-          href="#contact"
+          href="/#contact"
           className="hidden border border-red px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-red transition-colors hover:bg-red hover:text-white md:block"
         >
           Schedule Demo
