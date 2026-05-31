@@ -2,11 +2,12 @@
 
 import Reveal from "@/components/ui/Reveal";
 import Counter from "@/components/ui/Counter";
+import SectionMark from "@/components/ui/SectionMark";
 
 const PAINS = [
   {
     h: "Reactive, Not Proactive",
-    b: "Incidents surface after the damage is done — rarely before.",
+    b: "Incidents surface after the damage is done, rarely before.",
   },
   {
     h: "Manpower Doesn't Scale",
@@ -41,9 +42,7 @@ export default function Problem() {
     <section className="bg-bg-2 px-6 py-28">
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-red">
-            The Operational Reality
-          </p>
+          <SectionMark index="01" label="The Operational Reality" />
           <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-fg md:text-6xl">
             More ground to cover.
             <br />

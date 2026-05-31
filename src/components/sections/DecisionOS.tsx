@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
+import SectionMark from "@/components/ui/SectionMark";
 
 const STEPS = [
   "Sensor Fusion",
@@ -45,7 +46,7 @@ export default function DecisionOS() {
     <section className="bg-bg px-6 py-28">
       <div className="mx-auto max-w-7xl">
         <Reveal className="max-w-2xl">
-          <p className="label text-red">Part 3 — Action Layer</p>
+          <SectionMark index="05" label="Action Layer" />
           <h2 className="mt-3 font-display text-4xl font-bold text-fg md:text-6xl">
             Decision OS →
           </h2>

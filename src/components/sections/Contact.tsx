@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { contactSchema, type ContactInput } from "@/lib/schemas";
 import Reveal from "@/components/ui/Reveal";
+import SectionMark from "@/components/ui/SectionMark";
 
 const FIELDS: { name: keyof ContactInput; label: string; type?: string; req?: boolean }[] = [
   { name: "name", label: "Name", req: true },
@@ -42,7 +43,7 @@ export default function Contact() {
     <section id="contact" className="bg-bg-2 px-6 py-28">
       <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[2fr_3fr]">
         <Reveal>
-          <p className="label text-red">Get in Touch</p>
+          <SectionMark index="07" label="Get in Touch" />
           <h2 className="mt-3 font-display text-3xl font-bold text-fg md:text-5xl">
             Schedule a live demonstration.
           </h2>

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import SectionMark from "@/components/ui/SectionMark";
 
 const DroneScene = dynamic(() => import("@/components/3d/DroneScene"), {
   ssr: false,
@@ -63,7 +64,7 @@ export default function DroneShowcase() {
 
           {/* Heading */}
           <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-24">
-            <p className="label text-red">Autonomous e-VTOL Drone</p>
+            <SectionMark index="02" label="Autonomous e-VTOL Drone" />
             <h2 className="mt-3 max-w-xl font-display text-4xl font-bold text-fg md:text-6xl">
               Fully autonomous. Fully capable.
             </h2>
@@ -79,7 +80,7 @@ export default function DroneShowcase() {
                   <ul className="space-y-1">
                     {s.items.map((it) => (
                       <li key={it} className="font-mono text-xs text-muted">
-                        — {it}
+                        · {it}
                       </li>
                     ))}
                   </ul>

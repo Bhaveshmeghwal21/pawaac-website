@@ -30,7 +30,9 @@ export default function Navigation() {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <a href="#top" className="flex items-center gap-2.5 text-fg">
-          <Logo className="h-7 w-7" />
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-fg">
+            <Logo className="h-5 w-5 text-bg" />
+          </span>
           <span className="font-display text-lg font-bold tracking-tight text-fg">
             PAWAAC
           </span>

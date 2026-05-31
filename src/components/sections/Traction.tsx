@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
 import Counter from "@/components/ui/Counter";
+import SectionMark from "@/components/ui/SectionMark";
 
-// Operational capability metrics — customer-relevant, no financials.
+// Operational capability metrics: customer-relevant, no financials.
 const STATS: {
   end: number;
   decimals?: number;
@@ -18,7 +19,7 @@ const STATS: {
   { end: 2, suffix: " hr", label: "Flight Endurance" },
 ];
 
-// Use-case sectors — no customer names, no contract values.
+// Use-case sectors: no customer names, no contract values.
 const SECTORS = [
   {
     name: "Border & Frontier Surveillance",
@@ -56,9 +57,7 @@ export default function Traction() {
     <section id="deployments" className="bg-white px-6 py-28 text-[#080808]">
       <div className="mx-auto max-w-7xl">
         <Reveal className="max-w-2xl">
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-red">
-            Field-Proven
-          </p>
+          <SectionMark index="06" label="Field-Proven" />
           <h2 className="mt-3 font-display text-3xl font-bold leading-tight md:text-5xl">
             Built for the mission. Proven in the air.
           </h2>
@@ -102,7 +101,7 @@ export default function Traction() {
             ))}
           </div>
 
-          {/* Verified flight time — the trust signal for aerial systems */}
+          {/* Verified flight time: the trust signal for aerial systems */}
           <Reveal y={40}>
             <div className="flex h-full min-h-[360px] flex-col justify-center rounded-sm bg-bg p-8 text-fg">
               <p className="label">Verified Flight Time</p>
@@ -113,7 +112,7 @@ export default function Traction() {
                 className="mt-3 block font-mono text-5xl font-semibold md:text-6xl"
               />
               <p className="mt-2 text-sm text-muted">
-                Total airframe hours across the fleet — every system earns its missions in the air.
+                Total airframe hours across the fleet. Every system earns its missions in the air.
               </p>
 
               {/* Split bar */}

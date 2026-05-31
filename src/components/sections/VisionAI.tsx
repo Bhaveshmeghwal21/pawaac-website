@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
+import SectionMark from "@/components/ui/SectionMark";
 
 const BOXES = [
   { x: "12%", y: "30%", w: "22%", h: "34%", label: "PERSONNEL", conf: "96.4%", color: "#00ff88" },
@@ -10,9 +11,9 @@ const BOXES = [
 ];
 
 const ALERTS = [
-  { t: "⚠", msg: "Border intrusion detected — Zone 4B", time: "14:32:01", color: "text-red" },
-  { t: "✓", msg: "Convoy route cleared — 2 vehicles", time: "14:30:55", color: "text-green" },
-  { t: "⚑", msg: "Unusual movement — Personnel: 7", time: "14:29:12", color: "text-blue" },
+  { t: "⚠", msg: "Border intrusion detected · Zone 4B", time: "14:32:01", color: "text-red" },
+  { t: "✓", msg: "Convoy route cleared · 2 vehicles", time: "14:30:55", color: "text-green" },
+  { t: "⚑", msg: "Unusual movement · Personnel: 7", time: "14:29:12", color: "text-blue" },
 ];
 
 const CARDS = [
@@ -26,7 +27,7 @@ export default function VisionAI() {
     <section id="vision-ai" className="bg-bg px-6 py-28">
       <div className="mx-auto max-w-7xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="label text-red">Part 2 — Perception Layer</p>
+          <SectionMark index="04" label="Perception Layer" className="justify-center" />
           <h2 className="mt-3 font-display text-4xl font-bold text-fg md:text-6xl">
             Vision AI →
           </h2>
@@ -64,7 +65,7 @@ export default function VisionAI() {
               </motion.div>
             ))}
             <span className="absolute bottom-2 left-0 right-0 text-center font-mono text-[10px] text-muted">
-              SIMULATED INTERFACE — Real-time performance varies by deployment
+              SIMULATED INTERFACE · Real-time performance varies by deployment
             </span>
           </div>
 

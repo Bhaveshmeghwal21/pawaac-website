@@ -1,10 +1,11 @@
 "use client";
 
 import Reveal from "@/components/ui/Reveal";
+import SectionMark from "@/components/ui/SectionMark";
 
 const STEPS = [
   "Draw your patrol route on the map",
-  "Hit Go — the drone flies itself",
+  "Hit Go, the drone flies itself",
   "AI watches every frame, detects anomalies",
   "Instant alerts sent to your command post",
 ];
@@ -35,7 +36,7 @@ export default function Simplicity() {
 
         <div>
           <Reveal>
-            <p className="label text-red">Revolutionary Simplicity</p>
+            <SectionMark index="03" label="Revolutionary Simplicity" />
             <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-fg md:text-5xl">
               If you know how to use a phone, you can fly PAWAAC drones.
             </h2>

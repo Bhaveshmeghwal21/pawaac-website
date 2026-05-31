@@ -30,7 +30,7 @@ export default function Vision() {
           PAWAAC is to physical security what maps are to navigation.
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-muted">
-          The data layer for physical security — embedded into cities, borders,
+          The data layer for physical security, embedded into cities, borders,
           and infrastructure, turning observation into continuous security
           intelligence.
         </p>

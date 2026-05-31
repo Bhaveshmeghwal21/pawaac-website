@@ -23,9 +23,9 @@ function DroneModel() {
         const m = mesh.material as THREE.MeshStandardMaterial;
         if (m) {
           const dark = /cam|gimbal|lens|motor|servo|prop/i.test(mesh.name);
-          m.metalness = 0.2;
-          m.roughness = 0.5;
-          m.color = new THREE.Color(dark ? "#141414" : "#f3f3f3");
+          m.metalness = dark ? 0.55 : 0.1;
+          m.roughness = dark ? 0.4 : 0.62;
+          m.color = new THREE.Color(dark ? "#16171a" : "#e8e4db");
         }
       }
     });
@@ -63,10 +63,10 @@ export default function DroneScene() {
       camera={{ fov: 45, position: [0, 0, 5] }}
       dpr={[1, 2]}
     >
-      <ambientLight intensity={0.55} />
-      <directionalLight position={[5, 5, 5]} intensity={1.4} />
-      <directionalLight position={[-5, 3, -5]} intensity={0.6} color="#ffffff" />
-      <spotLight position={[0, 10, 0]} intensity={0.7} angle={0.3} />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 6, 4]} intensity={1.5} color="#fff6ea" />
+      <directionalLight position={[-6, 2, -4]} intensity={1.1} color="#ffffff" />
+      <spotLight position={[0, 8, 2]} intensity={0.5} angle={0.4} penumbra={0.6} />
       <Suspense fallback={null}>
         <DroneModel />
       </Suspense>

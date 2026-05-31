@@ -4,22 +4,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { LOGO_PATH } from "@/components/ui/Logo";
 
+const TRACE = { duration: 1.5, ease: [0.65, 0, 0.35, 1] as const };
+
 export default function Preloader() {
   const [done, setDone] = useState(true);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("pawaac-loaded")) return;
     setDone(false);
-    const r = setTimeout(() => setReady(true), 1400);
     const t = setTimeout(() => {
       setDone(true);
       sessionStorage.setItem("pawaac-loaded", "1");
-    }, 2200);
-    return () => {
-      clearTimeout(r);
-      clearTimeout(t);
-    };
+    }, 2300);
+    return () => clearTimeout(t);
   }, []);
 
   return (
@@ -27,53 +24,55 @@ export default function Preloader() {
       {!done && (
         <motion.div
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-black"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[120] flex items-center justify-center overflow-hidden bg-black"
         >
-          <motion.svg
-            viewBox="0 0 640 640"
-            className="h-28 w-28"
-            initial={{ scale: 0.9, rotate: -8 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-          >
+          {/* diagonal recon scan, sweeps once off-axis */}
+          <motion.span
+            className="absolute h-[160vmax] w-px bg-white/40"
+            style={{ rotate: "22deg" }}
+            initial={{ x: "-55vw", opacity: 0 }}
+            animate={{ x: "55vw", opacity: [0, 1, 0] }}
+            transition={{ duration: 1.6, ease: "easeInOut" }}
+          />
+
+          <svg viewBox="0 0 640 640" className="h-24 w-24 -translate-y-1">
             <g transform="translate(0,640) scale(0.1,-0.1)">
+              {/* trail drawn behind the comet */}
               <motion.path
                 d={LOGO_PATH}
+                fill="none"
                 stroke="#f0ede8"
                 strokeWidth={2}
-                fill="#f0ede8"
+                strokeOpacity={0.85}
                 vectorEffect="non-scaling-stroke"
-                initial={{ pathLength: 0, fillOpacity: 0 }}
-                animate={{ pathLength: 1, fillOpacity: 1 }}
-                transition={{
-                  pathLength: { duration: 1.3, ease: "easeInOut" },
-                  fillOpacity: { delay: 1, duration: 0.6 },
-                }}
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={TRACE}
+              />
+              {/* bright comet head running the swirl */}
+              <motion.path
+                d={LOGO_PATH}
+                fill="none"
+                stroke="#ffffff"
+                strokeWidth={5}
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                initial={{ pathLength: 0.025, pathOffset: 0, opacity: 1 }}
+                animate={{ pathOffset: 0.975, opacity: [1, 1, 0] }}
+                transition={TRACE}
+              />
+              {/* flood fill on arrival */}
+              <motion.path
+                d={LOGO_PATH}
+                stroke="none"
+                fill="#f0ede8"
+                initial={{ fillOpacity: 0 }}
+                animate={{ fillOpacity: 1 }}
+                transition={{ delay: 1.45, duration: 0.5, ease: "easeOut" }}
               />
             </g>
-          </motion.svg>
-
-          <motion.span
-            initial={{ opacity: 0, letterSpacing: "0.5em" }}
-            animate={{ opacity: 1, letterSpacing: "0.32em" }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-5 font-display text-xl font-bold text-fg"
-          >
-            PAWAAC
-          </motion.span>
-
-          <div className="mt-4 h-px w-40 overflow-hidden bg-line">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 1.6, ease: "easeInOut" }}
-              className="h-full bg-red"
-            />
-          </div>
-          <span className="label mt-3 text-[10px]">
-            {ready ? "SYSTEM READY" : "INITIALIZING"}
-          </span>
+          </svg>
         </motion.div>
       )}
     </AnimatePresence>

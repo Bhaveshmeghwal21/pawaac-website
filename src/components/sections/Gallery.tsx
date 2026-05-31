@@ -49,7 +49,7 @@ export default function Gallery() {
     <section className="bg-bg px-6 py-28">
       <div className="mx-auto max-w-7xl">
         <h2 className="font-display text-4xl font-bold text-fg md:text-6xl">Gallery</h2>
-        <p className="mt-3 text-muted">From research to deployment — in the field.</p>
+        <p className="mt-3 text-muted">From research to deployment, in the field.</p>
 
         <div className="mt-8 flex flex-wrap gap-2">
           {FILTERS.map((f) => (

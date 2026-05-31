@@ -5,6 +5,7 @@ import LenisProvider from "@/components/providers/LenisProvider";
 import FilmGrain from "@/components/ui/FilmGrain";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Preloader from "@/components/ui/Preloader";
+import HudFrame from "@/components/ui/HudFrame";
 import Navigation from "@/components/layout/Navigation";
 
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
@@ -17,9 +18,9 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pawaac.com"),
-  title: "PAWAAC Drones — Autonomous Aerial Surveillance for India",
+  title: "PAWAAC Drones · Autonomous Aerial Surveillance for India",
   description:
-    "Fully autonomous drones for defense and police. 24×7 surveillance without pilots. Vision AI and Decision OS — the data layer for physical security.",
+    "Fully autonomous drones for defense and police. 24×7 surveillance without pilots. Vision AI and Decision OS. The data layer for physical security.",
   keywords: [
     "autonomous drone India",
     "surveillance drone defense",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     "border surveillance drone",
   ],
   openGraph: {
-    title: "PAWAAC Drones — Autonomous Aerial Surveillance",
+    title: "PAWAAC Drones · Autonomous Aerial Surveillance",
     description:
       "The aerial security layer for the physical world. Fully autonomous drones, Vision AI, and Decision OS.",
     type: "website",
@@ -48,6 +49,7 @@ export default function RootLayout({
       <body className="bg-bg text-fg antialiased">
         <Preloader />
         <FilmGrain />
+        <HudFrame />
         <CustomCursor />
         <LenisProvider>
           <Navigation />
