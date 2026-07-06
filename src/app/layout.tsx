@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/providers/LenisProvider";
 import FilmGrain from "@/components/ui/FilmGrain";
@@ -8,12 +8,19 @@ import Preloader from "@/components/ui/Preloader";
 import HudFrame from "@/components/ui/HudFrame";
 import Navigation from "@/components/layout/Navigation";
 
-const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
+// Typeface decision (resolved OCP-01, design.md -> Design Tokens -> Type tokens):
+// Display_Type/Heading use Space Grotesk (SIL OFL, variable-weight geometric grotesk).
+// Label_Caps/Technical_Data use JetBrains Mono (Apache 2.0), replacing IBM Plex Mono.
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
+});
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const plexMono = IBM_Plex_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-plex-mono",
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -44,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${inter.variable} ${plexMono.variable} has-custom-cursor`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} has-custom-cursor`}
     >
       <body className="bg-bg text-fg antialiased">
         <Preloader />

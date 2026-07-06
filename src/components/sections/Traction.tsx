@@ -74,13 +74,13 @@ export default function Traction() {
                 suffix={s.suffix}
                 className="block font-mono text-4xl font-semibold md:text-6xl"
               />
-              <span className="mx-auto mt-2 block h-px w-10 bg-red" />
-              <p className="mt-3 text-xs uppercase tracking-wide text-[#6b7280]">{s.label}</p>
+              <span className="mx-auto mt-2 block h-px w-10 bg-black" />
+              <p className="mt-3 text-xs uppercase tracking-wide text-[#6b6b6b]">{s.label}</p>
             </Reveal>
           ))}
         </div>
 
-        <p className="mt-20 text-center text-xs uppercase tracking-[0.2em] text-[#6b7280]">
+        <p className="mt-20 text-center text-xs uppercase tracking-[0.2em] text-[#6b6b6b]">
           Operational across India&apos;s defense, police &amp; critical-infrastructure sectors
         </p>
 
@@ -89,11 +89,11 @@ export default function Traction() {
           <div className="grid gap-4 sm:grid-cols-2">
             {SECTORS.map((m, i) => (
               <Reveal key={m.name} delay={i * 0.06}>
-                <div className="flex h-full flex-col justify-between border border-[#e5e7eb] p-5">
+                <div className="flex h-full flex-col justify-between border border-[#e5e5e5] p-5">
                   <p className="font-semibold">{m.name}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-[#6b7280]">{m.desc}</p>
-                  <p className="mt-4 flex items-center gap-2 text-xs uppercase tracking-wide text-[#6b7280]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-red" />
+                  <p className="mt-2 text-sm leading-relaxed text-[#6b6b6b]">{m.desc}</p>
+                  <p className="mt-4 flex items-center gap-2 text-xs uppercase tracking-wide text-[#6b6b6b]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-black" />
                     {m.status}
                   </p>
                 </div>
@@ -118,7 +118,7 @@ export default function Traction() {
               {/* Split bar */}
               <div className="mt-8 flex h-2 overflow-hidden rounded-full bg-line">
                 <motion.span
-                  className="block bg-red"
+                  className="block bg-white"
                   initial={{ width: 0 }}
                   whileInView={{ width: `${OPS_PCT}%` }}
                   viewport={{ once: true }}
@@ -134,7 +134,7 @@ export default function Traction() {
               </div>
 
               <div className="mt-5 grid grid-cols-2 gap-4">
-                <div className="border-l-2 border-red pl-3">
+                <div className="border-l-2 border-white pl-3">
                   <Counter end={OPS_HOURS} separator="," suffix="+" className="block font-mono text-2xl font-semibold" />
                   <p className="mt-1 text-[11px] uppercase tracking-wide text-muted">
                     Operational / Mission Hours

@@ -34,9 +34,9 @@ export default function DroneShowcase() {
           <div className="absolute inset-0" data-cursor="crosshair">
             {isMobile ? (
               <div className="flex h-full items-center justify-center">
-                <div className="relative h-40 w-72 rounded-sm border border-line bg-[radial-gradient(circle,#15171c,#080808)]">
+                <div className="relative h-40 w-72 rounded-sm border border-line bg-[radial-gradient(circle,#181818,#080808)]">
                   <div className="absolute left-1/2 top-1/2 h-1.5 w-56 -translate-x-1/2 -translate-y-1/2 rounded bg-fg/20" />
-                  <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red" />
+                  <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
                 </div>
               </div>
             ) : (
@@ -55,7 +55,7 @@ export default function DroneShowcase() {
                 className="pointer-events-none absolute z-10 flex items-center gap-2"
                 style={{ left: h.x, top: h.y }}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-red shadow-[0_0_8px_#e8202a]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_#ffffff]" />
                 <span className="border border-line bg-surface/70 px-2 py-1 font-mono text-[10px] uppercase tracking-wide text-fg backdrop-blur-sm">
                   {h.label}
                 </span>

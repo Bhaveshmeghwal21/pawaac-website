@@ -61,7 +61,7 @@ export default function Hero() {
       className="relative h-[100dvh] w-full overflow-hidden bg-bg"
     >
       {/* ambient backdrop */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,#15171c_0%,#080808_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,#181818_0%,#080808_70%)]" />
       {/* drone footage drops in when /videos assets exist */}
       <video
         autoPlay
@@ -100,8 +100,8 @@ export default function Hero() {
           transition={{ delay: 0.4 }}
           className="absolute left-6 top-24 flex items-center gap-3 md:top-28"
         >
-          <span className="font-mono text-[11px] tracking-widest text-red">[ 00 ]</span>
-          <span className="h-px w-8 bg-red/40" />
+          <span className="font-mono text-[11px] tracking-widest text-fg">[ 00 ]</span>
+          <span className="h-px w-8 bg-fg/40" />
           <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
             Aerial Autonomy Systems
           </span>
@@ -120,7 +120,7 @@ export default function Hero() {
             >
               {l.t === "WORLD." ? (
                 <>
-                  WORLD<span className="text-red">.</span>
+                  WORLD<span className="text-white">.</span>
                 </>
               ) : (
                 l.t
@@ -148,7 +148,7 @@ export default function Hero() {
         >
           <a
             href="#contact"
-            className="bg-red px-7 py-3.5 text-sm font-semibold text-white transition hover:brightness-110"
+            className="bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Schedule Demo →
           </a>
@@ -174,19 +174,19 @@ export default function Hero() {
           ))}
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-green" />
-              <span className="font-mono text-[10px] tracking-widest text-green">LIVE FEED</span>
+              <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-fg" />
+              <span className="font-mono text-[10px] tracking-widest text-fg">LIVE FEED</span>
             </span>
             <span className="font-mono text-[9px] tracking-widest text-muted">FT-01</span>
           </div>
           <div className="mt-4">
             <HudRow k="ALTITUDE" v={`${alt}`} unit="m AGL" />
             <HudRow k="SPEED" v={`${spd}`} unit="km/h" />
-            <HudRow k="COVERAGE" v="ACTIVE" color="text-green" />
+            <HudRow k="COVERAGE" v="ACTIVE" color="text-fg" />
             <HudRow
               k="AI STATUS"
               v={alert ? "ALERT" : "MONITORING"}
-              color={alert ? "text-red" : "text-green"}
+              color={alert ? "text-white font-semibold" : "text-muted"}
             />
           </div>
           <p className="mt-4 font-mono text-[9px] leading-relaxed text-muted">

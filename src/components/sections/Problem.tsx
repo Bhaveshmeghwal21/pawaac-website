@@ -27,14 +27,14 @@ type StatItem = {
   suffix?: string;
   separator?: string;
   sub: string;
-  red: boolean;
+  emphasis: boolean;
 };
 
 const STATS: StatItem[] = [
-  { label: "Borders & coastline", end: 22623, separator: ",", suffix: " km", sub: "to keep under watch", red: false },
-  { label: "Ground patrol", end: 3, prefix: "~", suffix: " km²/hr", sub: "is all one team can cover", red: true },
-  { label: "Threats operate", end: 24, suffix: "×7", sub: "your coverage has to as well", red: false },
-  { label: "Real-time eyes", end: 30, prefix: "<", suffix: "%", sub: "of critical areas have them", red: true },
+  { label: "Borders & coastline", end: 22623, separator: ",", suffix: " km", sub: "to keep under watch", emphasis: false },
+  { label: "Ground patrol", end: 3, prefix: "~", suffix: " km²/hr", sub: "is all one team can cover", emphasis: true },
+  { label: "Threats operate", end: 24, suffix: "×7", sub: "your coverage has to as well", emphasis: false },
+  { label: "Real-time eyes", end: 30, prefix: "<", suffix: "%", sub: "of critical areas have them", emphasis: true },
 ];
 
 export default function Problem() {
@@ -46,14 +46,14 @@ export default function Problem() {
           <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-fg md:text-6xl">
             More ground to cover.
             <br />
-            <span className="text-red">Fewer eyes</span> to do it.
+            <span className="text-white">Fewer eyes</span> to do it.
           </h2>
         </Reveal>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-5">
           <div className="lg:col-span-2">
             {PAINS.map((p, i) => (
-              <Reveal key={p.h} delay={i * 0.1} className="mb-8 border-l-2 border-red pl-4">
+              <Reveal key={p.h} delay={i * 0.1} className="mb-8 border-l-2 border-fg/50 pl-4">
                 <h3 className="text-[13px] font-bold uppercase tracking-wide text-fg">
                   {p.h}
                 </h3>
@@ -74,7 +74,7 @@ export default function Problem() {
                     suffix={s.suffix}
                     separator={s.separator}
                     className={`mt-4 block font-mono text-4xl font-semibold md:text-5xl ${
-                      s.red ? "text-red" : "text-fg"
+                      s.emphasis ? "text-white" : "text-fg"
                     }`}
                   />
                   <p className="mt-2 text-xs text-muted">{s.sub}</p>

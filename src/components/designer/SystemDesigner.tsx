@@ -116,8 +116,8 @@ export default function SystemDesigner() {
             <span key={c} className={`absolute h-2.5 w-2.5 border-fg/60 ${c}`} />
           ))}
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[11px] tracking-widest text-red">[ SYS ]</span>
-            <span className="h-px w-8 bg-red/40" />
+            <span className="font-mono text-[11px] tracking-widest text-fg">[ SYS ]</span>
+            <span className="h-px w-8 bg-fg/40" />
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
               Coverage Planner
             </span>
@@ -131,7 +131,7 @@ export default function SystemDesigner() {
 
           <button
             onClick={requestLocation}
-            className="mt-6 w-full bg-red px-5 py-3 text-sm font-semibold text-white transition hover:brightness-110"
+            className="mt-6 w-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Use my current location
           </button>
@@ -145,7 +145,7 @@ export default function SystemDesigner() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Enter an address or city"
-              className="w-full border border-line bg-bg px-3 py-2.5 font-mono text-sm text-fg outline-none transition placeholder:text-muted focus:border-red"
+              className="w-full border border-line bg-bg px-3 py-2.5 font-mono text-sm text-fg outline-none transition placeholder:text-muted focus:border-interactive"
             />
             <button
               type="submit"
@@ -155,7 +155,7 @@ export default function SystemDesigner() {
             </button>
           </form>
 
-          {status && <p className="mt-3 font-mono text-[11px] text-red">{status}</p>}
+          {status && <p className="mt-3 font-mono text-[11px] text-fg">{status}</p>}
         </div>
       </div>
     );
@@ -175,8 +175,8 @@ export default function SystemDesigner() {
       </div>
 
       <div className="pointer-events-none absolute left-6 top-20 z-[400] flex items-center gap-3">
-        <span className="font-mono text-[11px] tracking-widest text-red">[ SYS ]</span>
-        <span className="h-px w-8 bg-red/40" />
+        <span className="font-mono text-[11px] tracking-widest text-fg">[ SYS ]</span>
+        <span className="h-px w-8 bg-fg/40" />
         <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
           Coverage Planner
         </span>
@@ -227,7 +227,7 @@ export default function SystemDesigner() {
               step={25}
               value={radiusM}
               onChange={(e) => setRadiusM(parseInt(e.target.value))}
-              className="mt-2 w-full accent-red"
+              className="mt-2 w-full accent-white"
             />
             <p className="mt-2 font-mono text-[9px] leading-relaxed text-muted">
               Longer drone range means each station covers more ground, so fewer stations
@@ -240,7 +240,7 @@ export default function SystemDesigner() {
               Docking stations
             </span>
             <div className="mt-1 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-bold text-red">{docks.length}</span>
+              <span className="font-display text-5xl font-bold text-white">{docks.length}</span>
               <span className="font-mono text-[11px] text-muted">suggested</span>
             </div>
             <p className="mt-2 font-mono text-[10px] leading-relaxed text-muted">
@@ -251,7 +251,7 @@ export default function SystemDesigner() {
 
           <a
             href="/#contact"
-            className="mt-5 block bg-red px-5 py-3 text-center text-sm font-semibold text-white transition hover:brightness-110"
+            className="mt-5 block bg-white px-5 py-3 text-center text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Request this deployment
           </a>
@@ -260,10 +260,10 @@ export default function SystemDesigner() {
 
       <div className="absolute bottom-4 left-4 z-[400] hidden items-center gap-4 border border-line bg-surface/80 px-4 py-2 font-mono text-[10px] text-muted backdrop-blur-md sm:flex">
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-red" /> Docking station
+          <span className="h-2 w-2 rounded-full bg-white" /> Docking station
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-3 border border-red/60 bg-red/10" /> Drone coverage
+          <span className="h-2 w-3 border border-fg/60 bg-fg/10" /> Drone coverage
         </span>
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-3 border border-dashed border-fg/60" /> Survey zone

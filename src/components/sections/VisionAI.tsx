@@ -5,15 +5,15 @@ import Reveal from "@/components/ui/Reveal";
 import SectionMark from "@/components/ui/SectionMark";
 
 const BOXES = [
-  { x: "12%", y: "30%", w: "22%", h: "34%", label: "PERSONNEL", conf: "96.4%", color: "#00ff88" },
-  { x: "58%", y: "44%", w: "26%", h: "30%", label: "VEHICLE", conf: "94.2%", color: "#00ff88" },
-  { x: "40%", y: "16%", w: "18%", h: "22%", label: "ANOMALY", conf: "88.7%", color: "#e8202a" },
+  { x: "12%", y: "30%", w: "22%", h: "34%", label: "PERSONNEL", conf: "96.4%", color: "#8f8f8f" },
+  { x: "58%", y: "44%", w: "26%", h: "30%", label: "VEHICLE", conf: "94.2%", color: "#8f8f8f" },
+  { x: "40%", y: "16%", w: "18%", h: "22%", label: "ANOMALY", conf: "88.7%", color: "#ffffff" },
 ];
 
 const ALERTS = [
-  { t: "⚠", msg: "Border intrusion detected · Zone 4B", time: "14:32:01", color: "text-red" },
-  { t: "✓", msg: "Convoy route cleared · 2 vehicles", time: "14:30:55", color: "text-green" },
-  { t: "⚑", msg: "Unusual movement · Personnel: 7", time: "14:29:12", color: "text-blue" },
+  { t: "⚠", msg: "Border intrusion detected · Zone 4B", time: "14:32:01", color: "text-white font-semibold" },
+  { t: "✓", msg: "Convoy route cleared · 2 vehicles", time: "14:30:55", color: "text-muted" },
+  { t: "⚑", msg: "Unusual movement · Personnel: 7", time: "14:29:12", color: "text-fg" },
 ];
 
 const CARDS = [
@@ -39,12 +39,12 @@ export default function VisionAI() {
 
         <Reveal y={40} className="mt-14 grid gap-4 lg:grid-cols-[1fr_300px]">
           {/* Feed + detection sim */}
-          <div className="relative aspect-video overflow-hidden rounded-sm border border-line bg-[radial-gradient(circle_at_60%_40%,#13151a,#070707)]">
+          <div className="relative aspect-video overflow-hidden rounded-sm border border-line bg-[radial-gradient(circle_at_60%_40%,#161616,#070707)]">
             <div
               className="absolute inset-0 opacity-10"
               style={{
                 backgroundImage:
-                  "linear-gradient(#3b82f6 1px,transparent 1px),linear-gradient(90deg,#3b82f6 1px,transparent 1px)",
+                  "linear-gradient(#8a8a8a 1px,transparent 1px),linear-gradient(90deg,#8a8a8a 1px,transparent 1px)",
                 backgroundSize: "40px 40px",
               }}
             />
@@ -72,8 +72,8 @@ export default function VisionAI() {
           {/* Alert sidebar */}
           <div className="rounded-sm border border-line bg-surface/70 p-4 backdrop-blur-md">
             <div className="mb-3 flex items-center gap-2">
-              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-green" />
-              <span className="font-mono text-[11px] tracking-widest text-green">
+              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-fg" />
+              <span className="font-mono text-[11px] tracking-widest text-fg">
                 LIVE ALERTS
               </span>
             </div>
@@ -100,7 +100,7 @@ export default function VisionAI() {
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {CARDS.map((c, i) => (
             <Reveal key={c.h} delay={i * 0.1}>
-              <div className={`h-full bg-surface p-6 ${i === 0 ? "border-l-2 border-red" : "border border-line"}`}>
+              <div className={`h-full bg-surface p-6 ${i === 0 ? "border-l-2 border-fg/50" : "border border-line"}`}>
                 <p className="label mb-2">{`0${i + 1}`}</p>
                 <h3 className="font-display text-xl font-semibold text-fg">{c.h}</h3>
                 <p className="mt-2 text-sm text-muted">{c.b}</p>

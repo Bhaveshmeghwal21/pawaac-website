@@ -45,7 +45,7 @@ export default function Navigation() {
                 className="group relative text-[13px] font-medium text-muted transition-colors hover:text-fg"
               >
                 {l.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-red transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-interactive transition-all duration-300 group-hover:w-full" />
               </a>
             </li>
           ))}
@@ -53,7 +53,7 @@ export default function Navigation() {
 
         <a
           href="/#contact"
-          className="hidden border border-red px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-red transition-colors hover:bg-red hover:text-white md:block"
+          className="hidden border border-fg px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-fg transition-colors hover:bg-fg hover:text-bg md:block"
         >
           Schedule Demo
         </a>

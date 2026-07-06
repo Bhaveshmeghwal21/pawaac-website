@@ -37,7 +37,7 @@ export default function Contact() {
   };
 
   const inputCls =
-    "w-full border border-line bg-surface px-3 py-2.5 text-sm text-fg outline-none transition focus:border-red placeholder:text-muted";
+    "w-full border border-line bg-surface px-3 py-2.5 text-sm text-fg outline-none transition focus:border-interactive placeholder:text-muted";
 
   return (
     <section id="contact" className="bg-bg-2 px-6 py-28">
@@ -60,8 +60,8 @@ export default function Contact() {
 
         <Reveal y={40}>
           {done ? (
-            <div className="flex h-full min-h-[300px] flex-col items-center justify-center border border-green/40 bg-surface p-8 text-center">
-              <span className="text-3xl text-green">✓</span>
+            <div className="flex h-full min-h-[300px] flex-col items-center justify-center border border-fg/40 bg-surface p-8 text-center">
+              <span className="text-3xl text-fg">✓</span>
               <p className="mt-3 text-fg">
                 Request received. We&apos;ll contact you within 24 hours.
               </p>
@@ -77,8 +77,8 @@ export default function Contact() {
                     className={inputCls}
                   />
                   {errors[f.name] && (
-                    <p className="mt-1 font-mono text-[11px] text-red">
-                      {errors[f.name]?.message}
+                    <p className="mt-1 font-mono text-[11px] font-semibold text-white">
+                      ⚠ {errors[f.name]?.message}
                     </p>
                   )}
                 </div>
@@ -90,12 +90,12 @@ export default function Contact() {
                 className={inputCls}
               />
               {errors.root && (
-                <p className="font-mono text-[11px] text-red">{errors.root.message}</p>
+                <p className="font-mono text-[11px] font-semibold text-white">⚠ {errors.root.message}</p>
               )}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-red py-3 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
+                className="w-full bg-white py-3 text-sm font-semibold text-black transition hover:bg-interactive disabled:opacity-60"
               >
                 {isSubmitting ? "Submitting…" : "Request Live Demo →"}
               </button>
