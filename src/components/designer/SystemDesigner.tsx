@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import type { Bounds, Dock } from "@/components/designer/MapCanvas";
+import ReticleFrame from "@/components/ui/ReticleFrame";
 
 const MapCanvas = dynamic(() => import("@/components/designer/MapCanvas"), {
   ssr: false,
@@ -111,6 +112,16 @@ export default function SystemDesigner() {
   if (!bounds) {
     return (
       <div className="relative flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-bg px-6">
+        {/* Display_Type oversized background texture (Pattern 1), purely
+            decorative — hidden from assistive technology per Requirement 10.6.
+            Spec: pawaac-design-language-evolution — Task 20 (Planner_Page
+            Section 1). Requirements: 4.1, 4.3, 9.3, 9.4, 9.5. */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center font-display text-[22vw] font-bold uppercase leading-none text-fg/[0.04]"
+        >
+          PLANNER
+        </span>
         <div className="relative w-full max-w-md border border-line bg-surface/70 p-8 backdrop-blur-md">
           {CORNERS.map((c) => (
             <span key={c} className={`absolute h-2.5 w-2.5 border-fg/60 ${c}`} />
@@ -164,6 +175,22 @@ export default function SystemDesigner() {
   // ── Step 2: design the docking system ─────────────────
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden bg-bg">
+      {/* Display_Type oversized background texture (Pattern 1), purely
+          decorative — hidden from assistive technology per Requirement 10.6.
+          Spec: pawaac-design-language-evolution — Task 20 (Planner_Page
+          Section 1). Requirements: 4.1, 4.3, 9.3, 9.4, 9.5. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-1/2 z-[1] -translate-y-1/2 select-none text-center font-display text-[22vw] font-bold uppercase leading-none text-fg/[0.03]"
+      >
+        PLANNER
+      </span>
+
+      {/* Map/tool container — Reticle_Frame (P4) wraps the interactive map
+          shell per Task 20. Existing SystemDesigner/MapCanvas coverage
+          math, address search, and drag-reposition logic below are
+          unchanged (Requirement 9.3-9.5); this only adds a decorative,
+          aria-hidden corner-frame overlay. */}
       <div className="absolute inset-0 z-0">
         <MapCanvas
           bounds={bounds}
@@ -172,6 +199,7 @@ export default function SystemDesigner() {
           onChange={setBounds}
           onDockMove={moveDock}
         />
+        <ReticleFrame variant="dark" />
       </div>
 
       <div className="pointer-events-none absolute left-6 top-20 z-[400] flex items-center gap-3">
@@ -250,7 +278,7 @@ export default function SystemDesigner() {
           </div>
 
           <a
-            href="/#contact"
+            href="/contact"
             className="mt-5 block bg-white px-5 py-3 text-center text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Request this deployment

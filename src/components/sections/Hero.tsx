@@ -147,13 +147,13 @@ export default function Hero() {
           className="mt-8 flex w-fit flex-wrap gap-px bg-line"
         >
           <a
-            href="#contact"
+            href="/contact"
             className="bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Schedule Demo →
           </a>
           <a
-            href="#technology"
+            href="/autonomy"
             className="bg-bg px-7 py-3.5 text-sm font-semibold text-fg transition hover:bg-surface"
           >
             Watch in Action ▶

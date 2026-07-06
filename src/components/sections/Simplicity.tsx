@@ -55,7 +55,7 @@ export default function Simplicity() {
 
           <Reveal delay={0.4}>
             <a
-              href="#vision-ai"
+              href="/autonomy"
               className="group mt-10 inline-flex items-center gap-2 font-mono text-sm text-fg"
             >
               See it live

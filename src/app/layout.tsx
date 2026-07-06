@@ -60,7 +60,7 @@ export default function RootLayout({
         <CustomCursor />
         <LenisProvider>
           <Navigation />
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
         </LenisProvider>
       </body>
     </html>
