@@ -25,13 +25,20 @@ const CORNERS = [
 ];
 
 // ~400m square around a point, scaled so it stays square in meters
-function siteBounds(lat: number, lng: number): Bounds {
+//
+// Spec: pawaac-design-language-evolution — Task 38.1 (Verify page-split
+// migration: Planner_Page coverage math)
+// Requirements: 9.3
+// `export`ed (pure refactor, no logic change) so the coverage-area math can
+// be unit-tested directly without rendering the full SystemDesigner/
+// MapCanvas tree (which requires a Leaflet/DOM environment).
+export function siteBounds(lat: number, lng: number): Bounds {
   const dLat = 0.0018;
   const dLng = dLat / Math.max(0.2, Math.cos(lat * TO_R));
   return { sw: [lat - dLat, lng - dLng], ne: [lat + dLat, lng + dLng] };
 }
 
-function dims(b: Bounds) {
+export function dims(b: Bounds) {
   const midLat = ((b.sw[0] + b.ne[0]) / 2) * TO_R;
   const widthM = Math.abs((b.ne[1] - b.sw[1]) * TO_R * Math.cos(midLat) * EARTH);
   const heightM = Math.abs((b.ne[0] - b.sw[0]) * TO_R * EARTH);

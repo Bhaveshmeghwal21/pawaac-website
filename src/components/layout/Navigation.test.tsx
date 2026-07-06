@@ -1,5 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from "vitest";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { render, screen } from "@testing-library/react";
 import Navigation from "./Navigation";
 
@@ -70,5 +72,26 @@ describe("Navigation", () => {
     expect(primaryHrefsInDomOrder).toEqual(
       EXPECTED_PRIMARY_ITEMS.map((item) => item.href),
     );
+  });
+});
+
+// Spec: pawaac-design-language-evolution — Task 38.2 (Verify route wiring
+// across the full site: Navigation's 5 links resolve to real routes)
+// Requirements: 1.1, 1.3, 1.4
+// Design: design.md -> Testing Strategy
+//
+// Confirms Navigation's 5 primary hrefs exactly match the 5 real
+// `src/app/**/page.tsx` routes created by tasks 10-13 and 20 (the
+// pre-existing /designer route), by checking each href resolves to an
+// actual `page.tsx` file on disk under `src/app`.
+describe("Navigation route wiring (Requirement 1.1)", () => {
+  it("every primary item's href resolves to a real src/app/**/page.tsx route", () => {
+    const appDir = join(__dirname, "..", "..", "app");
+
+    EXPECTED_PRIMARY_ITEMS.forEach((item) => {
+      const routeDir = item.href.replace(/^\//, "");
+      const pagePath = join(appDir, routeDir, "page.tsx");
+      expect(existsSync(pagePath)).toBe(true);
+    });
   });
 });
