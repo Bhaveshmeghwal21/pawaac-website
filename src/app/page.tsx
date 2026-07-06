@@ -64,10 +64,20 @@ import HomeEnterpriseFraming from "@/components/sections/HomeEnterpriseFraming";
 import HomeCompanyStrip from "@/components/sections/HomeCompanyStrip";
 import HomeContactBand from "@/components/sections/HomeContactBand";
 import Footer from "@/components/layout/Footer";
+import SkyScenery from "@/components/ui/SkyScenery";
 
+// SkyScenery (site-owner-requested full-bleed background, live
+// visual-preview feedback): a fixed, viewport-sized, purely decorative
+// backdrop rendered once here so it sits behind every section below.
+// Requirement 10.6: aria-hidden + pointer-events-none, handled inside
+// SkyScenery itself. Sections that need to let it show through have had
+// their solid `bg-bg` swapped for a semi-transparent `bg-bg/NN` — see
+// each Home*.tsx section for details; HomeEnterpriseFraming keeps its
+// solid `bg-white` for text-contrast readability on that light section.
 export default function Home() {
   return (
     <>
+      <SkyScenery />
       <HomeHero />
       <HomeSpecSheet />
       <HomeDeploymentsPreview />

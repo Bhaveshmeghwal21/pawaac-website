@@ -14,7 +14,9 @@ import ReticleFrame from "@/components/ui/ReticleFrame";
 
 export default function HomePlannerCTA() {
   return (
-    <section className="relative overflow-hidden bg-bg px-6 py-24 md:py-32">
+    // bg-bg -> bg-bg/80 (site-owner-requested full-bleed SkyScenery
+    // backdrop): semi-transparent so the sky shows through.
+    <section className="relative overflow-hidden bg-bg/80 px-6 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">
         <Reveal>
           <p className="label">Planner</p>

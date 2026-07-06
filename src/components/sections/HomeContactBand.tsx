@@ -16,7 +16,9 @@ import ReticleFrame from "@/components/ui/ReticleFrame";
 
 export default function HomeContactBand() {
   return (
-    <section className="relative overflow-hidden bg-bg px-6 py-24 md:py-32">
+    // bg-bg -> bg-bg/80 (site-owner-requested full-bleed SkyScenery
+    // backdrop): semi-transparent so the sky shows through.
+    <section className="relative overflow-hidden bg-bg/80 px-6 py-24 md:py-32">
       <div className="mx-auto max-w-4xl text-center">
         <Reveal>
           <p className="label justify-center">Request demo</p>

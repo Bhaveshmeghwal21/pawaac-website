@@ -16,6 +16,13 @@ import Reveal from "@/components/ui/Reveal";
 
 export default function HomeEnterpriseFraming() {
   return (
+    // Kept solid `bg-white` (NOT made semi-transparent like the dark
+    // sections) despite the site-owner-requested full-bleed SkyScenery
+    // backdrop in page.tsx: this is the one light/white section on the
+    // Homepage, and letting a dark sky gradient bleed through a
+    // semi-transparent white background would either wash out the sky or
+    // muddy this section's text contrast (Requirement 3.6-3.8). Solid white
+    // here reads as an intentional light "panel" over the dark backdrop.
     <section className="relative overflow-hidden bg-white px-6 py-24 text-[#080808] md:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">
         <Reveal>

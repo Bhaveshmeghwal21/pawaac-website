@@ -20,7 +20,10 @@ import ReticleFrame from "@/components/ui/ReticleFrame";
 
 export default function HomeHero() {
   return (
-    <section className="relative overflow-hidden bg-bg px-6 py-28 md:py-36">
+    // bg-bg -> bg-bg/80 (site-owner-requested full-bleed SkyScenery
+    // backdrop, rendered in page.tsx behind every section): semi-transparent
+    // so the sky texture (horizon, sun disc, clouds) shows through here.
+    <section className="relative overflow-hidden bg-bg/80 px-6 py-28 md:py-36">
       {/* Display_Type oversized word-mark texture behind hero media
           (Pattern 1), purely decorative — hidden from assistive
           technology per Requirement 10.6 */}

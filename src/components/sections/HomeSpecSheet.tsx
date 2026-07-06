@@ -35,7 +35,12 @@ const PANELS: SpecPanel[] = [
 
 export default function HomeSpecSheet() {
   return (
-    <section className="relative bg-bg">
+    // bg-bg -> bg-bg/80 (site-owner-requested full-bleed SkyScenery
+    // backdrop): semi-transparent so the sky shows through behind the
+    // pinned spec-sheet panels; text-fg/text-muted contrast against the
+    // sky's near-black/dark-grey tones stays equivalent to bg-bg since the
+    // sky gradient sits in the same achromatic dark range.
+    <section className="relative bg-bg/80">
       <div className="mx-auto max-w-7xl px-6 pt-24">
         <p className="label">Defense &amp; police</p>
         <h2 className="mt-3 text-heading font-display text-fg">

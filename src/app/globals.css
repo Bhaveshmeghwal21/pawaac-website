@@ -130,12 +130,12 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide native cursor only where a fine pointer + custom cursor exist */
-@media (pointer: fine) {
-  html.has-custom-cursor * {
-    cursor: none;
-  }
-}
+/*
+ * Custom cursor removed (site owner request): the `has-custom-cursor` class
+ * is no longer applied to <html> in src/app/layout.tsx, so the rule that
+ * used to hide the native cursor here has been removed as dead CSS. The
+ * native browser cursor is now shown everywhere.
+ */
 
 ::selection {
   background: var(--color-grey-200);

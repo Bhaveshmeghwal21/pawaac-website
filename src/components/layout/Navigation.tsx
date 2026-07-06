@@ -11,8 +11,24 @@ import Logo from "@/components/ui/Logo";
 //
 // Exactly 5 primary items, in this order, pointing to real Pawaac_Site
 // routes (replacing the previous in-page anchor LINKS array).
-const LINKS = [
-  { label: "Product", href: "/product" },
+//
+// "Product" additionally carries a dropdown (Requirement: user-requested
+// follow-up) exposing the 4 product lines. The 4th line is now named
+// "HawkAI" (site owner has finalized the name; previously "Quadcopter
+// (name pending)").
+const PRODUCT_SUBLINKS = [
+  { label: "Software Stack", href: "/product/software-stack" },
+  { label: "Docking System", href: "/product/docking-system" },
+  { label: "Sentrivion", href: "/product/sentrivion" },
+  { label: "HawkAI", href: "/product/hawkai" },
+];
+
+const LINKS: {
+  label: string;
+  href: string;
+  children?: typeof PRODUCT_SUBLINKS;
+}[] = [
+  { label: "Product", href: "/product", children: PRODUCT_SUBLINKS },
   { label: "Autonomy", href: "/autonomy" },
   { label: "Deployments", href: "/deployments" },
   { label: "Planner", href: "/designer" },
@@ -71,22 +87,51 @@ export default function Navigation() {
             // ("/contact"), Careers_Page ("/careers"), or any other
             // non-matching route.
             const isActive = pathname === l.href;
+            const hasChildren = !!l.children?.length;
+
             return (
-              <li key={l.href}>
+              <li key={l.href} className={hasChildren ? "group/nav relative" : ""}>
                 <a
                   href={l.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`label group relative transition-colors hover:text-fg ${
+                  aria-haspopup={hasChildren ? "true" : undefined}
+                  aria-expanded={hasChildren ? "false" : undefined}
+                  className={`label group relative flex items-center gap-1.5 transition-colors hover:text-fg ${
                     isActive ? "text-fg" : "text-muted"
                   }`}
                 >
                   {l.label}
+                  {hasChildren && (
+                    <span
+                      aria-hidden="true"
+                      className="mt-px inline-block text-[9px] transition-transform duration-200 group-hover/nav:rotate-180"
+                    >
+                      ▾
+                    </span>
+                  )}
                   <span
                     className={`absolute -bottom-1 left-0 h-px bg-interactive transition-all duration-300 ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
                 </a>
+
+                {hasChildren && (
+                  <ul
+                    className="invisible absolute left-0 top-full z-[91] mt-2 w-56 border border-line bg-black/95 py-2 opacity-0 backdrop-blur-[16px] transition-opacity duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
+                  >
+                    {l.children!.map((child) => (
+                      <li key={child.href}>
+                        <a
+                          href={child.href}
+                          className="label block px-4 py-2.5 text-muted transition-colors hover:text-fg"
+                        >
+                          {child.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             );
           })}
@@ -125,17 +170,31 @@ export default function Navigation() {
               CLOSE ✕
             </button>
             {LINKS.map((l, i) => (
-              <motion.a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 * i }}
-                className="font-display text-3xl font-semibold text-fg"
-              >
-                {l.label}
-              </motion.a>
+              <div key={l.href} className="flex flex-col items-center gap-3">
+                <motion.a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 * i }}
+                  className="font-display text-3xl font-semibold text-fg"
+                >
+                  {l.label}
+                </motion.a>
+                {l.children?.map((child) => (
+                  <motion.a
+                    key={child.href}
+                    href={child.href}
+                    onClick={() => setOpen(false)}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * i + 0.03 }}
+                    className="label text-muted"
+                  >
+                    {child.label}
+                  </motion.a>
+                ))}
+              </div>
             ))}
           </motion.div>
         )}

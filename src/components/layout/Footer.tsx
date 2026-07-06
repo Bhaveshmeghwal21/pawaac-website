@@ -98,7 +98,7 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-12 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-line pt-6 text-xs text-muted sm:flex-row">
-        <p>© 2026 Pawaac Drones Pvt Ltd</p>
+        <p>© 2026 Bajrang Dronetech Pvt Ltd</p>
         <div className="flex gap-3">
           <span className="border border-line px-2 py-1 font-mono text-[10px]">DGCA COMPLIANT</span>
           <span className="border border-line px-2 py-1 font-mono text-[10px]">MeitY RECOGNIZED</span>

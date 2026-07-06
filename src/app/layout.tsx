@@ -3,7 +3,6 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/providers/LenisProvider";
 import FilmGrain from "@/components/ui/FilmGrain";
-import CustomCursor from "@/components/ui/CustomCursor";
 import Preloader from "@/components/ui/Preloader";
 import HudFrame from "@/components/ui/HudFrame";
 import Navigation from "@/components/layout/Navigation";
@@ -51,13 +50,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} has-custom-cursor`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-bg text-fg antialiased">
         <Preloader />
         <FilmGrain />
         <HudFrame />
-        <CustomCursor />
         <LenisProvider>
           <Navigation />
           <main id="main-content">{children}</main>

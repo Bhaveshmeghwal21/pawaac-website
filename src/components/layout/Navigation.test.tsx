@@ -75,6 +75,37 @@ describe("Navigation", () => {
   });
 });
 
+// User-requested follow-up: "Product" header item exposes a dropdown with
+// 4 product-line links (Software Stack, Docking System, Sentrivion,
+// HawkAI), each routed to a real src/app/product/**/page.tsx page.
+describe("Navigation Product dropdown", () => {
+  const EXPECTED_PRODUCT_SUBLINKS = [
+    { label: "Software Stack", href: "/product/software-stack" },
+    { label: "Docking System", href: "/product/docking-system" },
+    { label: "Sentrivion", href: "/product/sentrivion" },
+    { label: "HawkAI", href: "/product/hawkai" },
+  ];
+
+  it("renders all 4 product sub-links with the correct hrefs", () => {
+    render(<Navigation />);
+
+    EXPECTED_PRODUCT_SUBLINKS.forEach((item) => {
+      const link = screen.getByRole("link", { name: item.label });
+      expect(link).toHaveAttribute("href", item.href);
+    });
+  });
+
+  it("every product sub-link href resolves to a real src/app/product/**/page.tsx route", () => {
+    const appDir = join(__dirname, "..", "..", "app");
+
+    EXPECTED_PRODUCT_SUBLINKS.forEach((item) => {
+      const routeDir = item.href.replace(/^\//, "");
+      const pagePath = join(appDir, routeDir, "page.tsx");
+      expect(existsSync(pagePath)).toBe(true);
+    });
+  });
+});
+
 // Spec: pawaac-design-language-evolution — Task 38.2 (Verify route wiring
 // across the full site: Navigation's 5 links resolve to real routes)
 // Requirements: 1.1, 1.3, 1.4
