@@ -21,6 +21,16 @@ describe("Footer", () => {
     expect(contact).toHaveAttribute("href", "/contact");
   });
 
+  // Spec: pawaac-design-language-evolution — Task 58
+  // Requirements: 1.8
+  // Design: design.md -> Shared Components -> Footer
+  it("renders the Deployments link pointing to /deployments, since Deployments_Page is no longer in primary Navigation (Requirement 1.8)", () => {
+    render(<Footer />);
+    const deployments = screen.getByRole("link", { name: "Deployments" });
+    expect(deployments).toHaveAttribute("href", "/deployments");
+    expect(deployments).not.toHaveAttribute("target");
+  });
+
   it('renders the Corporate_Site link naming "Bajrang Dronetech Pvt Ltd" and excluding "PAWAAC" in any casing (Requirement 2.1)', () => {
     render(<Footer />);
     const corporateLink = screen.getByRole("link", {

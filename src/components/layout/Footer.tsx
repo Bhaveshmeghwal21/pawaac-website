@@ -25,6 +25,15 @@ function ExternalLinkMarker() {
 // required by Requirements 1.3/1.4; Product/Autonomy/Deployments/Company are
 // kept for a fuller internal nav mirror, consistent with design.md's mention
 // of "5 nav mirrors if repeated in-footer."
+//
+// Spec: pawaac-design-language-evolution, Task 58
+// Requirements: 1.8
+// Design: design.md -> Shared Components -> Footer
+//
+// "Deployments" link is retained/reaffirmed here since Deployments_Page is
+// no longer reachable from primary Navigation (task 57 removed it in favor
+// of the Resources dropdown) — the Footer is now its only nav-level
+// pathway. It is internal, so it never renders the External_Link_Marker.
 const INTERNAL_LINKS: { label: string; href: string }[] = [
   { label: "Product", href: "/product" },
   { label: "Autonomy", href: "/autonomy" },

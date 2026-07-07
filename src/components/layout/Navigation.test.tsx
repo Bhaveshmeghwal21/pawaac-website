@@ -17,31 +17,45 @@ vi.mock("next/navigation", () => ({
   usePathname: () => "/",
 }));
 
-const EXPECTED_PRIMARY_ITEMS = [
+// Spec: pawaac-design-language-evolution — Task 57 (supersedes Task 36's
+// original 5-item assumption)
+// Requirements: 1.1, 1.5, 1.6
+// Design: design.md -> Shared Components -> Header / Navigation
+//
+// Product, Autonomy, and Company are real links. Resources has no own
+// route — it is a dropdown trigger only (rendered as a <button>) — so it
+// is asserted separately by role "button", not role "link".
+const EXPECTED_PRIMARY_LINK_ITEMS = [
   { label: "Product", href: "/product" },
   { label: "Autonomy", href: "/autonomy" },
-  { label: "Deployments", href: "/deployments" },
-  { label: "Planner", href: "/designer" },
   { label: "Company", href: "/company" },
 ];
 
 describe("Navigation", () => {
-  it("renders exactly 5 primary items, in order, linking to their real routes (Requirement 1.1)", () => {
+  it("renders exactly 4 primary items, in order — Product, Autonomy, Resources, Company (Requirement 1.1)", () => {
     render(<Navigation />);
 
-    const items = EXPECTED_PRIMARY_ITEMS.map((item) =>
+    const items = EXPECTED_PRIMARY_LINK_ITEMS.map((item) =>
       screen.getByRole("link", { name: item.label }),
     );
-
-    // Exactly 5 — no more, no fewer — primary nav links in the document.
-    const allPrimaryLinks = EXPECTED_PRIMARY_ITEMS.map((item) =>
-      screen.getAllByRole("link", { name: item.label }),
-    ).flat();
-    expect(allPrimaryLinks).toHaveLength(5);
-
     items.forEach((link, i) => {
-      expect(link).toHaveAttribute("href", EXPECTED_PRIMARY_ITEMS[i].href);
+      expect(link).toHaveAttribute("href", EXPECTED_PRIMARY_LINK_ITEMS[i].href);
     });
+
+    // Resources renders as a dropdown trigger (button), not a link, since
+    // it has no own route.
+    expect(
+      screen.getByRole("button", { name: /Resources/ }),
+    ).toBeInTheDocument();
+
+    // Exactly 4 primary items total, no more, no fewer.
+    const allPrimaryTriggers = [
+      ...EXPECTED_PRIMARY_LINK_ITEMS.map((item) =>
+        screen.getAllByRole("link", { name: item.label }),
+      ).flat(),
+      screen.getByRole("button", { name: /Resources/ }),
+    ];
+    expect(allPrimaryTriggers).toHaveLength(4);
   });
 
   it('activating "Request Demo" navigates to Contact_Page (/contact) (Requirement 1.7)', () => {
@@ -59,18 +73,18 @@ describe("Navigation", () => {
     expect(links[0]).toHaveAttribute("href", "#main-content");
   });
 
-  it("renders the 5 primary items as <a> tags in DOM order matching their visual order (Requirement 10.4)", () => {
+  it("renders the 3 linked primary items as <a> tags in DOM order matching their visual order (Requirement 10.4)", () => {
     render(<Navigation />);
 
     const links = screen.getAllByRole("link");
     const primaryHrefsInDomOrder = links
       .map((link) => link.getAttribute("href"))
       .filter((href) =>
-        EXPECTED_PRIMARY_ITEMS.some((item) => item.href === href),
+        EXPECTED_PRIMARY_LINK_ITEMS.some((item) => item.href === href),
       );
 
     expect(primaryHrefsInDomOrder).toEqual(
-      EXPECTED_PRIMARY_ITEMS.map((item) => item.href),
+      EXPECTED_PRIMARY_LINK_ITEMS.map((item) => item.href),
     );
   });
 });
@@ -107,22 +121,71 @@ describe("Navigation Product dropdown", () => {
 });
 
 // Spec: pawaac-design-language-evolution — Task 38.2 (Verify route wiring
-// across the full site: Navigation's 5 links resolve to real routes)
+// across the full site: Navigation's primary links resolve to real routes)
 // Requirements: 1.1, 1.3, 1.4
 // Design: design.md -> Testing Strategy
 //
-// Confirms Navigation's 5 primary hrefs exactly match the 5 real
-// `src/app/**/page.tsx` routes created by tasks 10-13 and 20 (the
-// pre-existing /designer route), by checking each href resolves to an
+// Confirms Navigation's 3 linked primary hrefs (Product, Autonomy,
+// Company — Resources has no own route) exactly match real
+// `src/app/**/page.tsx` routes, by checking each href resolves to an
 // actual `page.tsx` file on disk under `src/app`.
 describe("Navigation route wiring (Requirement 1.1)", () => {
-  it("every primary item's href resolves to a real src/app/**/page.tsx route", () => {
+  it("every linked primary item's href resolves to a real src/app/**/page.tsx route", () => {
     const appDir = join(__dirname, "..", "..", "app");
 
-    EXPECTED_PRIMARY_ITEMS.forEach((item) => {
+    EXPECTED_PRIMARY_LINK_ITEMS.forEach((item) => {
       const routeDir = item.href.replace(/^\//, "");
       const pagePath = join(appDir, routeDir, "page.tsx");
       expect(existsSync(pagePath)).toBe(true);
+    });
+  });
+});
+
+// Spec: pawaac-design-language-evolution — Task 57
+// Requirements: 1.1, 2.3
+// Design: design.md -> Shared Components -> Header / Navigation
+//   (Resources_Menu dropdown contents)
+//
+// Analogous to the "Navigation Product dropdown" block above: Resources
+// exposes a dropdown with 4 sublinks (Planner, Log Analyser, News, Our
+// Commitments). Log Analyser is external and carries the
+// External_Link_Marker treatment; the other 3 do not.
+describe("Navigation Resources dropdown", () => {
+  const EXPECTED_RESOURCES_SUBLINKS = [
+    { label: "Planner", href: "/designer" },
+    { label: "Log Analyser", href: "https://analyse.bajrangdrone.tech" },
+    { label: "News", href: "/news" },
+    { label: "Our Commitments", href: "/commitments" },
+  ];
+
+  it("renders all 4 Resources sublinks with the correct hrefs", () => {
+    render(<Navigation />);
+
+    EXPECTED_RESOURCES_SUBLINKS.forEach((item) => {
+      const link = screen.getByRole("link", { name: new RegExp(item.label) });
+      expect(link).toHaveAttribute("href", item.href);
+    });
+  });
+
+  it('renders "Log Analyser" with the External_Link_Marker (opens external site) and target="_blank"', () => {
+    render(<Navigation />);
+
+    const logAnalyser = screen.getByRole("link", { name: /Log Analyser/ });
+    expect(logAnalyser).toHaveAttribute("target", "_blank");
+    expect(logAnalyser).toHaveAttribute("rel", "noopener noreferrer");
+    expect(logAnalyser).toHaveAccessibleName(
+      "Log Analyser (opens external site)",
+    );
+  });
+
+  it("does not render the External_Link_Marker on Planner, News, or Our Commitments", () => {
+    render(<Navigation />);
+
+    const internalLabels = ["Planner", "News", "Our Commitments"];
+    internalLabels.forEach((label) => {
+      const link = screen.getByRole("link", { name: new RegExp(`^${label}$`) });
+      expect(link).not.toHaveAttribute("target");
+      expect(link.textContent).not.toContain("opens external site");
     });
   });
 });
