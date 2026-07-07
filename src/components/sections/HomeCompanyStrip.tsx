@@ -11,9 +11,10 @@
 // (no founding year, no team size, no numeral) appended.
 export default function HomeCompanyStrip() {
   return (
-    // bg-bg -> bg-bg/80 (site-owner-requested full-bleed SkyScenery
-    // backdrop): semi-transparent so the sky shows through.
-    <section className="relative bg-bg/80 px-6 py-20 md:py-24">
+    // bg-bg/80 -> bg-bg/50: SkyScenery's contrast fix (see SkyScenery.tsx)
+    // now makes the sky genuinely visible, so this section's tint is
+    // loosened further to let more of it show through.
+    <section className="relative bg-bg/50 px-6 py-20 md:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 border-t border-line pt-10 md:grid-cols-[2fr_1fr] md:items-end">
           <div>

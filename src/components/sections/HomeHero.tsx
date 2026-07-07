@@ -20,10 +20,12 @@ import ReticleFrame from "@/components/ui/ReticleFrame";
 
 export default function HomeHero() {
   return (
-    // bg-bg -> bg-bg/80 (site-owner-requested full-bleed SkyScenery
-    // backdrop, rendered in page.tsx behind every section): semi-transparent
-    // so the sky texture (horizon, sun disc, clouds) shows through here.
-    <section className="relative overflow-hidden bg-bg/80 px-6 py-28 md:py-36">
+    // bg-bg/80 -> bg-transparent: Hero is the first, most prominent
+    // section and now shows the (fixed) SkyScenery backdrop completely
+    // unobstructed, rather than through a near-opaque dark tint. See
+    // SkyScenery.tsx for the corresponding contrast fix that makes the
+    // sky itself actually visible.
+    <section className="relative overflow-hidden bg-transparent px-6 py-28 md:py-36">
       {/* Display_Type oversized word-mark texture behind hero media
           (Pattern 1), purely decorative — hidden from assistive
           technology per Requirement 10.6 */}
@@ -35,15 +37,26 @@ export default function HomeHero() {
       </span>
 
       <div className="relative z-10 mx-auto max-w-7xl">
+        {/* Local text backdrop, sized to just this text column (not the
+            whole section): with the section now fully transparent, on
+            short viewports this text can land over the sky gradient's
+            lighter grey-600 horizon band, where text-muted (#8a8a8a)
+            contrast gets marginal. A small semi-opaque dark panel behind
+            only the label/heading/supporting-sentence keeps them
+            comfortably legible while the sky stays unobstructed
+            everywhere else in the section (media block below is
+            unaffected — it already has its own opaque background). */}
         <Reveal>
-          <p className="label">Defense &amp; police</p>
-          <h1 className="mt-3 max-w-2xl text-heading font-display text-fg">
-            Autonomous perimeter response, built in India
-          </h1>
-          <p className="mt-4 max-w-md text-body font-body text-muted">
-            Pawaac drones patrol, detect, and respond without a pilot on
-            every flight.
-          </p>
+          <div className="-mx-4 -my-3 inline-block rounded-lg bg-bg/60 px-4 py-3 backdrop-blur-sm md:-mx-6 md:-my-4 md:px-6 md:py-4">
+            <p className="label">Defense &amp; police</p>
+            <h1 className="mt-3 max-w-2xl text-heading font-display text-fg">
+              Autonomous perimeter response, built in India
+            </h1>
+            <p className="mt-4 max-w-md text-body font-body text-muted">
+              Pawaac drones patrol, detect, and respond without a pilot on
+              every flight.
+            </p>
+          </div>
         </Reveal>
 
         <Reveal delay={0.15} className="mt-12">

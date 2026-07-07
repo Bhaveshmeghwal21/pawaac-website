@@ -57,49 +57,58 @@ export default function SkyScenery() {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
     >
-      {/* Atmospheric gradient bands: --color-black at the top fading
-          toward --color-grey-950 near a horizon line at ~58% viewport
-          height, then --color-grey-800 just below it. Strictly
-          achromatic — no hue. */}
+      {/* Atmospheric gradient bands: --color-black at the top and bottom,
+          rising through a genuinely visible charcoal horizon band
+          (--color-grey-800 -> --color-grey-600 -> --color-grey-800) around
+          ~48-66% viewport height. Reworked from the original near-black
+          --color-black -> --color-grey-950 pairing, which was visually
+          imperceptible (two near-identical near-black values at 80%
+          overlay opacity on top). Strictly achromatic — no hue, no
+          --color-interactive. */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, var(--color-black) 0%, var(--color-grey-950) 45%, var(--color-grey-950) 58%, var(--color-grey-800) 62%, var(--color-black) 100%)",
+            "linear-gradient(to bottom, var(--color-black) 0%, var(--color-black) 20%, var(--color-grey-800) 48%, var(--color-grey-600) 58%, var(--color-grey-800) 66%, var(--color-black) 100%)",
         }}
       />
 
-      {/* Soft "sun/moon" disc — a large, low-opacity radial gradient in a
-          light achromatic grey, sitting above the horizon. */}
+      {/* Soft "sun/moon" disc — bumped from a faint --color-grey-200/400 at
+          opacity 0.30 to a near-white --color-grey-100 core fading through
+          --color-grey-400, at opacity 0.6, so it reads as a clearly visible
+          bright disc against the dark sky rather than a faint smudge. */}
       <div
-        className="absolute left-1/2 top-[22%] h-[38vmax] w-[38vmax] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-2xl"
+        className="absolute left-1/2 top-[22%] h-[38vmax] w-[38vmax] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-2xl"
         style={{
           background:
-            "radial-gradient(circle, var(--color-grey-200) 0%, var(--color-grey-400) 35%, transparent 72%)",
+            "radial-gradient(circle, var(--color-grey-100) 0%, var(--color-grey-400) 35%, transparent 72%)",
         }}
       />
 
-      {/* Horizon line */}
+      {/* Horizon line — bumped from --color-grey-600 at opacity 0.4 to
+          --color-grey-400 at opacity 0.6, with a touch more thickness. */}
       <div
-        className="absolute inset-x-0 top-[58%] h-px opacity-40"
-        style={{ background: "var(--color-grey-600)" }}
+        className="absolute inset-x-0 top-[58%] h-[2px] opacity-60"
+        style={{ background: "var(--color-grey-400)" }}
       />
 
-      {/* Blurred, soft-edged cloud shapes — low-opacity white/grey blobs.
+      {/* Blurred, soft-edged cloud shapes — bumped from ~0.03-0.05 opacity
+          white blobs (nearly invisible) to ~0.12-0.18 so they're actually
+          visible against the sky, while keeping the blur for softness.
           Drift is intentionally slow and subtle to stay restrained; skipped
           entirely under prefers-reduced-motion (Requirement 9.8). */}
       <Cloud
-        className="absolute left-[8%] top-[16%] h-40 w-72 rounded-full bg-white/5 blur-3xl"
+        className="absolute left-[8%] top-[16%] h-40 w-72 rounded-full bg-white/15 blur-3xl"
         drift={40}
         duration={38}
       />
       <Cloud
-        className="absolute right-[12%] top-[30%] h-32 w-96 rounded-full bg-white/[0.04] blur-3xl"
+        className="absolute right-[12%] top-[30%] h-32 w-96 rounded-full bg-white/12 blur-3xl"
         drift={-55}
         duration={46}
       />
       <Cloud
-        className="absolute left-[35%] top-[10%] h-24 w-64 rounded-full bg-white/[0.03] blur-3xl"
+        className="absolute left-[35%] top-[10%] h-24 w-64 rounded-full bg-white/[0.18] blur-3xl"
         drift={30}
         duration={52}
       />
