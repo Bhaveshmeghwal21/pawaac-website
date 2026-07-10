@@ -1,17 +1,24 @@
 "use client";
 
-// Spec: pawaac-design-language-evolution — Task 11 (Autonomy_Page Section 4)
-// Requirements: 4.1, 4.3
+// Spec: pawaac-design-language-evolution — Task 69 (Autonomy_Page Section 4, supersedes Task 11)
+// Requirements: 8.1, 8.3
 // Design: design.md -> Page Specifications -> Autonomy_Page, Section 4
-//         (Autonomy safeguards)
+//         (Autonomy safeguards) — resolved OCP-09
 //
-// Persona: Both. Renders only the section shell/headline/supporting
-// sentence already specified (and approved as content) in design.md's
-// Autonomy_Page table. Claim-level DETAIL beyond that headline/supporting
-// sentence is gated by OCP-09 (open Change Proposal — see Phase 4, task
-// 48) per Requirement 7.2, so the rule list below is intentionally a
-// generic, non-specific placeholder/stub: short labels only, no
-// elaboration, no specific safeguard mechanism claim.
+// Persona: Both. OCP-09 is now resolved: the HawkAI Plus brochure's
+// confirmed "SAFETY FEATURES & APPLICATIONS" section (page 9) lists 6 real,
+// built-in safety systems. These replace the prior 4 generic single-word
+// stub labels. Each item now renders as a label + short description pair,
+// transcribed verbatim from design.md and MUST NOT be altered.
+const SAFEGUARDS = [
+  { label: "Battery Failsafe", description: "Auto RTH on low power" },
+  { label: "Geofence", description: "Virtual boundary protection" },
+  { label: "Return to Home", description: "Signal loss recovery" },
+  { label: "Emergency Landing", description: "Controlled descent logic" },
+  { label: "Mission Recovery", description: "Resume interrupted missions" },
+  { label: "Parachute (optional)", description: "Recovery system" },
+];
+
 export default function AutonomySafeguards() {
   return (
     <section className="relative bg-white px-6 py-28 text-[#080808]">
@@ -24,16 +31,18 @@ export default function AutonomySafeguards() {
           Autonomy operates inside defined geofences and operator-set rules.
         </p>
 
-        {/* Technical_Data rule-list styling (Pattern 2). Placeholder/stub
-            labels only — no elaboration, pending OCP-09 approval. */}
-        <ul className="mt-12 grid gap-px border border-[#d6d6d6] bg-[#d6d6d6] sm:grid-cols-2 lg:grid-cols-4">
-          {["Geofence enforcement", "Operator override", "Rule-based limits", "Fail-safe return"].map(
-            (item) => (
-              <li key={item} className="bg-white p-6">
-                <p className="technical-data text-[#8f8f8f]">{item}</p>
-              </li>
-            )
-          )}
+        {/* Technical_Data rule-list styling (Pattern 2), now extended to
+            show a label + short description pair per card (6 items,
+            resolved OCP-09) instead of the prior 4 single-word stubs. */}
+        <ul className="mt-12 grid gap-px border border-[#d6d6d6] bg-[#d6d6d6] sm:grid-cols-2 lg:grid-cols-3">
+          {SAFEGUARDS.map((item) => (
+            <li key={item.label} className="bg-white p-6">
+              <p className="technical-data text-[#080808]">{item.label}</p>
+              <p className="mt-1 text-[13px] text-[#454545]">
+                {item.description}
+              </p>
+            </li>
+          ))}
         </ul>
       </div>
     </section>

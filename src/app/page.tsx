@@ -16,11 +16,18 @@
 //   8. HomeContactBand           (Both)
 //
 // DroneShowcase (migrated to /product, task 10), VisionAI and DecisionOS
-// (migrated to /autonomy, task 11), Traction (migrated to /deployments,
-// task 12), and Contact (migrated to /contact, task 14) are removed from
-// this render tree. Those component files are left on disk, unused,
-// consistent with the "don't delete, don't break things" convention
-// already used by tasks 10-15.
+// (migrated to /autonomy, task 11), and Contact (migrated to /contact,
+// task 14) are removed from this render tree. Those component files are
+// left on disk, unused, consistent with the "don't delete, don't break
+// things" convention already used by tasks 10-15.
+//
+// Task 65 note: Deployments_Page (previously migrated from Traction.tsx at
+// /deployments, task 12) has been removed entirely per the site-owner
+// decision. Section 3 (HomeDeploymentsPreview) remains rendered here as a
+// purely illustrative teaser (decision option (c)) with its outbound
+// "View all deployments" link removed, since there is no longer a
+// Deployments_Page for it to link to. Traction.tsx itself is unaffected —
+// it was already unused on the Homepage as of task 16.
 //
 // Problem.tsx, Simplicity.tsx, Gallery.tsx, and Vision.tsx are also removed
 // from this render tree rather than adapted, because none of their content

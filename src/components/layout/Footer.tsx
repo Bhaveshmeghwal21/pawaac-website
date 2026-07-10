@@ -22,22 +22,18 @@ function ExternalLinkMarker() {
 // Internal footer nav mirror — replaces the previous in-page anchor LINKS
 // (#technology, #vision-ai, #deployments, #contact) with real routes
 // consistent with the primary Navigation (task 17). Careers and Contact are
-// required by Requirements 1.3/1.4; Product/Autonomy/Deployments/Company are
-// kept for a fuller internal nav mirror, consistent with design.md's mention
-// of "5 nav mirrors if repeated in-footer."
+// required by Requirements 1.3/1.4; Product/Autonomy/Company are kept for a
+// fuller internal nav mirror, consistent with design.md's mention of
+// "nav mirrors if repeated in-footer."
 //
-// Spec: pawaac-design-language-evolution, Task 58
-// Requirements: 1.8
-// Design: design.md -> Shared Components -> Footer
+// Spec: pawaac-design-language-evolution, Task 65
+// Design: design.md -> Shared Components -> Footer (Deployments_Page removed)
 //
-// "Deployments" link is retained/reaffirmed here since Deployments_Page is
-// no longer reachable from primary Navigation (task 57 removed it in favor
-// of the Resources dropdown) — the Footer is now its only nav-level
-// pathway. It is internal, so it never renders the External_Link_Marker.
+// "Deployments" link removed — Deployments_Page has been removed entirely
+// (task 65), so this is no longer a valid internal route.
 const INTERNAL_LINKS: { label: string; href: string }[] = [
   { label: "Product", href: "/product" },
   { label: "Autonomy", href: "/autonomy" },
-  { label: "Deployments", href: "/deployments" },
   { label: "Company", href: "/company" },
   // Requirement 1.3: Careers link -> Careers_Page (task 15)
   { label: "Careers", href: "/careers" },

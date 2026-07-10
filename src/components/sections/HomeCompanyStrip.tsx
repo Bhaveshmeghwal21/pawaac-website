@@ -1,14 +1,14 @@
-// Spec: pawaac-design-language-evolution — Task 16 (Homepage Section 7)
-// Requirements: 4.1, 4.3, 6.1, 6.3, 6.4
+// Spec: pawaac-design-language-evolution — Task 70 (Homepage Section 7, supersedes Task 16)
+// Requirements: 4.4
 // Design: design.md -> Page Specifications -> Homepage, Section 7
-//         (Company / trust strip)
+//         (Company / trust strip) — partially resolved OCP-05
 //
 // Persona: Both. Technical_Data metadata row (P2), linking to
-// Company_Page (/company, task 13). OCP-05 (which company facts —
-// founding year, team size, location — are approved for public display)
-// stays open: this section renders ONLY the fixed headline and the fixed
-// supporting sentence from design.md's table, with no additional fact
-// (no founding year, no team size, no numeral) appended.
+// Company_Page (/company, task 13). OCP-05 is now PARTIALLY resolved: the
+// founding year (2025) is approved for public display and is added below
+// as the third item in the existing metadata row. Team size and HQ
+// location remain open/undisclosed (narrowed OCP-05 — see task 44) and are
+// intentionally NOT added here.
 export default function HomeCompanyStrip() {
   return (
     // bg-bg/80 -> bg-bg/50: SkyScenery's contrast fix (see SkyScenery.tsx)
@@ -38,12 +38,13 @@ export default function HomeCompanyStrip() {
           </div>
         </div>
 
-        {/* Technical_Data metadata row — no additional fact (founding
-            year, team size, etc.) is populated here; that remains gated by
-            OCP-05 (Requirement 7.2, Phase 4, task 44). */}
+        {/* Technical_Data metadata row — founding year (2025) added as the
+            third item per the resolved, narrowed OCP-05 (Requirement 4.4).
+            Team size and HQ location remain gated/undisclosed (task 44). */}
         <div className="technical-data mt-8 flex flex-wrap gap-x-10 gap-y-2 text-muted">
           <span>Bajrang Dronetech Pvt Ltd</span>
           <span>Engineering &amp; operations · India</span>
+          <span>Founded 2025</span>
         </div>
       </div>
     </section>

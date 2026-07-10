@@ -3,8 +3,9 @@ import { describe, expect, it } from "vitest";
 // Spec: pawaac-design-language-evolution — Task 36
 // Requirements: 5.2
 // Design: design.md -> Page Specifications (Homepage / Product_Page /
-//   Autonomy_Page / Deployments_Page / Company_Page / Careers_Page tables,
-//   `Placeholder_Media` column); Testing Strategy -> Unit/example tests ->
+//   Autonomy_Page / Company_Page / Careers_Page tables, `Placeholder_Media`
+//   column — Deployments_Page removed entirely, task 65); Testing Strategy
+//   -> Unit/example tests ->
 //   "Every Placeholder_Media entry defined in this design has either a
 //    non-empty realAssetPaths list or a recorded open Change_Proposal"
 //
@@ -105,35 +106,9 @@ const PLACEHOLDER_MEDIA_FIXTURE: PlaceholderMediaFixtureEntry[] = [
     realAssetPaths: ["generated:autonomy-flow-diagram"],
     changeProposalId: null,
   },
-  // Deployments_Page
-  {
-    page: "Deployments_Page",
-    section: "1. Border & perimeter defense",
-    description: "Abstract geometric border-line placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-10",
-  },
-  {
-    page: "Deployments_Page",
-    section: "2. Police & law-enforcement patrol",
-    description: "Abstract geometric placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-11",
-  },
-  {
-    page: "Deployments_Page",
-    section: "3. Industrial site security",
-    description: "Abstract geometric placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-12",
-  },
-  {
-    page: "Deployments_Page",
-    section: "4. Critical infrastructure protection",
-    description: "Abstract geometric placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-13",
-  },
+  // Deployments_Page removed entirely (task 65) — its 4 fixture rows
+  // (previously gated on OCP-10/11/12/13) have been removed along with the
+  // page. See design.md's Property 8 retirement note.
   // Company_Page
   {
     page: "Company_Page",

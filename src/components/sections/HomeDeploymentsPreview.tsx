@@ -6,11 +6,18 @@
 //         (Deployment sectors preview)
 //
 // Persona: Defense_Police_Persona. Grayscale sector thumbnails (P7) with
-// Label_Caps sector tags (P2), Reveal_On_Scroll entrance (P5), linking to
-// Deployments_Page (/deployments, task 12). OCP-03 (thumbnail treatment:
-// abstract icons vs. generalized photography) stays open — per the
-// gating note, this section uses ABSTRACT ICON placeholders only, never
-// real or generalized facility imagery (Requirement 5.1, 5.4, 8.1).
+// Label_Caps sector tags (P2), Reveal_On_Scroll entrance (P5). OCP-03
+// (thumbnail treatment: abstract icons vs. generalized photography) stays
+// open — per the gating note, this section uses ABSTRACT ICON placeholders
+// only, never real or generalized facility imagery (Requirement 5.1, 5.4,
+// 8.1).
+//
+// Task 65 update: Deployments_Page (/deployments) has been removed
+// entirely. Per task 65's decision point, this section keeps its default
+// option (c) treatment — a purely illustrative teaser with no outbound
+// link. The "View all deployments" CTA that previously linked to
+// /deployments has been removed; headline, supporting sentence, and
+// visual treatment are otherwise unchanged.
 import Reveal from "@/components/ui/Reveal";
 
 const SECTORS = [
@@ -73,16 +80,6 @@ export default function HomeDeploymentsPreview() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal delay={0.2} className="mt-8">
-          <a
-            href="/deployments"
-            className="group inline-flex items-center gap-2 font-mono text-sm text-fg"
-          >
-            View all deployments
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </a>
-        </Reveal>
       </div>
     </section>
   );

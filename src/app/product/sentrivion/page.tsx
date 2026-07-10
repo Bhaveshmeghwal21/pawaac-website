@@ -1,27 +1,33 @@
 import type { Metadata } from "next";
 
-// User-requested follow-up (Product header dropdown, item 3 of 4):
-// "Sentrivion" — net-new placeholder route for this named product line.
-// No prior content existed for this name anywhere in the codebase; this is
-// a fresh page pending real content/specs from the site owner.
+// Spec: pawaac-design-language-evolution — Task 67 (Sentrivion Sub-Page route)
+// Requirements: 1.1, 4.1, 4.3, 4.4, 5.1, 5.4, 9.6
+// Design: design.md -> Page Specifications -> Sentrivion Product Sub-Page
+//
+// Rewrites the placeholder that previously lived here into a full page
+// with 3 sections, per design.md's resolved OCP-07 real
+// brochure-confirmed content: hero (real photo), capability
+// Pinned_Spec_Sheet (real numerals, no endurance/weight/payload numeral —
+// see SentrivionSpecs.tsx's caveat), and autonomy/AI capabilities
+// secondary disclosure rule-list. Persona ordering: Sections 1-2 are
+// Defense_Police_Persona, Section 3 is Both — table order already
+// satisfies Property 7.
+import SentrivionHero from "@/components/sections/SentrivionHero";
+import SentrivionSpecs from "@/components/sections/SentrivionSpecs";
+import SentrivionCapabilities from "@/components/sections/SentrivionCapabilities";
+
 export const metadata: Metadata = {
   title: "Sentrivion · PAWAAC Drones",
-  description: "Sentrivion — part of the Pawaac product line.",
+  description:
+    "Sentrivion: long endurance, autonomous VTOL built for surveillance and mapping.",
 };
 
 export default function SentrivionPage() {
   return (
-    <section className="relative bg-bg px-6 py-28 md:py-36">
-      <div className="mx-auto max-w-3xl">
-        <p className="label">Product / Sentrivion</p>
-        <h1 className="mt-3 text-heading font-display text-fg">Sentrivion</h1>
-        <p className="mt-4 max-w-md text-body font-body text-muted">
-          Details for Sentrivion are being finalized.
-        </p>
-        <p className="mt-10 font-mono text-[12px] uppercase tracking-[0.12em] text-muted">
-          Detailed specifications — pending confirmation
-        </p>
-      </div>
-    </section>
+    <>
+      <SentrivionHero />
+      <SentrivionSpecs />
+      <SentrivionCapabilities />
+    </>
   );
 }

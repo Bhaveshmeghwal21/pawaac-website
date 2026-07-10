@@ -136,9 +136,9 @@ export default function Navigation() {
             // (/designer, /news, /commitments) — Analyser is external and
             // cannot itself be "the current page", so it does not drive
             // the indicator. No item is active on Homepage ("/"),
-            // Contact_Page ("/contact"), Careers_Page ("/careers"),
-            // Deployments_Page ("/deployments"), or any other
-            // non-matching route.
+            // Contact_Page ("/contact"), Careers_Page ("/careers"), or any
+            // other non-matching route (Deployments_Page has been removed
+            // entirely — task 65).
             const isResourcesActive = RESOURCES_ACTIVE_ROUTES.includes(
               pathname ?? "",
             );

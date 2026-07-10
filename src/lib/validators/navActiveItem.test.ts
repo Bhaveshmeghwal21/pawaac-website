@@ -31,7 +31,7 @@ describe("resolveActiveNavItem", () => {
     expect(resolveActiveNavItem("/careers")).toBe(null);
   });
 
-  it("returns null for Deployments_Page (removed from primary Navigation, Footer-only per Requirement 1.8)", () => {
+  it("returns null for /deployments (Deployments_Page has been removed entirely, task 65)", () => {
     expect(resolveActiveNavItem("/deployments")).toBe(null);
   });
 
@@ -39,7 +39,7 @@ describe("resolveActiveNavItem", () => {
     expect(resolveActiveNavItem("/not-a-real-route")).toBe(null);
   });
 
-  // Feature: pawaac-design-language-evolution, Property 14: For any current route drawn from the set of all Pawaac_Site routes, the Navigation renders the active-item indicator under exactly one of the 4 primary items — Product, Autonomy, Resources, or Company — if the current route is /product, /autonomy, /company, or one of the three Resources_Menu-linked internal routes (/designer, /news, /commitments, all of which resolve to the Resources indicator), or under none of the 4 items if the current route matches none of those (including Homepage, Contact_Page, Careers_Page, and Deployments_Page).
+  // Feature: pawaac-design-language-evolution, Property 14: For any current route drawn from the set of all Pawaac_Site routes, the Navigation renders the active-item indicator under exactly one of the 4 primary items — Product, Autonomy, Resources, or Company — if the current route is /product, /autonomy, /company, or one of the three Resources_Menu-linked internal routes (/designer, /news, /commitments, all of which resolve to the Resources indicator), or under none of the 4 items if the current route matches none of those (including Homepage, Contact_Page, and Careers_Page).
   it("property: resolveActiveNavItem returns the mapped primary-item id or null, for a mix of valid routes and random strings", () => {
     const mappedRoutes = Object.keys(NAV_ROUTE_TO_PRIMARY_ITEM);
 

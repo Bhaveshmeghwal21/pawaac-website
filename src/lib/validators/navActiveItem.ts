@@ -45,8 +45,10 @@ export const NAV_ROUTE_TO_PRIMARY_ITEM: Record<string, PrimaryNavItemId> = {
  * `/company`, or one of the three Resources_Menu-linked internal routes
  * (`/designer`, `/news`, `/commitments`, all of which resolve to the
  * Resources indicator), or under none of the 4 items if the current route
- * matches none of those (including Homepage, Contact_Page, Careers_Page,
- * and Deployments_Page)."
+ * matches none of those (including Homepage, Contact_Page, and
+ * Careers_Page). Deployments_Page (`/deployments`) has been removed
+ * entirely (task 65) and, like any other unmapped route, resolves to
+ * `null`."
  *
  * Returns the resolved `PrimaryNavItemId`, or `null` if `currentRoute`
  * matches none of the mapped routes.

@@ -1,21 +1,32 @@
 import type { Metadata } from "next";
 
-// User-requested follow-up (Product header dropdown, item 4 of 4):
-// This product line has now been named "HawkAI" by the site owner —
-// replaces the earlier "Quadcopter (name pending)" placeholder. The route
-// moved from /product/quadcopter to /product/hawkai to match.
+// Spec: pawaac-design-language-evolution — Task 66 (HawkAI Plus Sub-Page route)
+// Requirements: 1.1, 4.1, 4.3, 4.4, 5.1, 5.4, 9.6
+// Design: design.md -> Page Specifications -> HawkAI Plus Product Sub-Page
+//
+// Rewrites the bare 3-line placeholder that previously lived here into a
+// full page with 3 sections, per design.md's resolved OCP-07 real
+// brochure-confirmed content: hero (real photo), airframe/flight
+// Pinned_Spec_Sheet (real numerals), and payload/sensor secondary
+// disclosure table. Persona ordering: Section 1-2 are
+// Defense_Police_Persona, Section 3 is Both — table order already
+// satisfies Property 7.
+import HawkAIHero from "@/components/sections/HawkAIHero";
+import HawkAISpecs from "@/components/sections/HawkAISpecs";
+import HawkAIPayloadDetails from "@/components/sections/HawkAIPayloadDetails";
+
 export const metadata: Metadata = {
-  title: "HawkAI · PAWAAC Drones",
-  description: "The Pawaac HawkAI platform.",
+  title: "HawkAI Plus · PAWAAC Drones",
+  description:
+    "HawkAI Plus: a compact tactical platform for surveillance, reconnaissance, and field response.",
 };
 
 export default function HawkAIPage() {
   return (
-    <section className="relative bg-bg px-6 py-28 md:py-36">
-      <div className="mx-auto max-w-3xl">
-        <p className="label">Product / HawkAI</p>
-        <h1 className="mt-3 text-heading font-display text-fg">HawkAI</h1>
-      </div>
-    </section>
+    <>
+      <HawkAIHero />
+      <HawkAISpecs />
+      <HawkAIPayloadDetails />
+    </>
   );
 }
