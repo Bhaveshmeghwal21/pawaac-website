@@ -45,18 +45,38 @@ export default function HomePlannerCTA() {
             }}
           >
             {/* Static screenshot-style geometric map Placeholder_Media —
-                grid lines, a bounded zone, and dock markers, monochrome
-                only (Requirement 5.1, 5.4). Not a live/simulated readout. */}
+                fine map-grid texture, road/route lines, a bounded coverage
+                zone with dashed radii from each dock, and dock markers,
+                monochrome only (Requirement 5.1, 5.4). Denser than the
+                original 2-circle sketch to read as a real planning canvas.
+                Not a live/simulated readout. */}
             <svg
               viewBox="0 0 220 165"
               className="absolute inset-0 h-full w-full p-8 text-fg/50"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.5"
+              strokeWidth="1"
             >
-              <rect x="20" y="20" width="180" height="125" strokeDasharray="4 4" />
-              <circle cx="70" cy="70" r="30" />
-              <circle cx="140" cy="95" r="30" />
+              {/* fine map-tile grid */}
+              <g opacity="0.2">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <line key={`v${i}`} x1={i * 22} y1="0" x2={i * 22} y2="165" />
+                ))}
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <line key={`h${i}`} x1="0" y1={i * 22} x2="220" y2={i * 22} />
+                ))}
+              </g>
+
+              {/* road/route lines */}
+              <path d="M0 130 L90 130 L120 90 L220 90" strokeWidth="1.5" />
+              <path d="M60 165 L60 60 L200 20" strokeWidth="1.5" opacity="0.6" />
+
+              {/* bounded mission zone */}
+              <rect x="20" y="20" width="180" height="125" strokeDasharray="4 4" strokeWidth="1.5" />
+
+              {/* coverage radii + dock markers */}
+              <circle cx="70" cy="70" r="30" strokeDasharray="3 3" />
+              <circle cx="140" cy="95" r="34" strokeDasharray="3 3" />
               <circle cx="70" cy="70" r="4" fill="currentColor" stroke="none" />
               <circle cx="140" cy="95" r="4" fill="currentColor" stroke="none" />
             </svg>

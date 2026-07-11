@@ -10,7 +10,10 @@
 // (thumbnail treatment: abstract icons vs. generalized photography) stays
 // open — per the gating note, this section uses ABSTRACT ICON placeholders
 // only, never real or generalized facility imagery (Requirement 5.1, 5.4,
-// 8.1).
+// 8.1). Resolved via site-owner-delegated judgment: an abstract line-art
+// icon is now rendered for every sector tag (defense, police, industrial,
+// infrastructure) so the section reads as a finished icon set rather than
+// two bare placeholder tiles; no real facility imagery was introduced.
 //
 // Task 65 update: Deployments_Page (/deployments) has been removed
 // entirely. Per task 65's decision point, this section keeps its default
@@ -43,6 +46,29 @@ const SECTORS = [
       </svg>
     ),
   },
+  {
+    tag: "industrial",
+    icon: (
+      <svg viewBox="0 0 100 100" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="15" y="55" width="18" height="30" />
+        <rect x="41" y="35" width="18" height="50" />
+        <rect x="67" y="45" width="18" height="40" />
+        <path d="M20 55 L20 40 L28 40 L28 55" />
+      </svg>
+    ),
+  },
+  {
+    tag: "infrastructure",
+    icon: (
+      <svg viewBox="0 0 100 100" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M10 75 L50 25 L90 75" />
+        <line x1="30" y1="75" x2="30" y2="52" />
+        <line x1="50" y1="75" x2="50" y2="38" />
+        <line x1="70" y1="75" x2="70" y2="52" />
+        <line x1="10" y1="75" x2="90" y2="75" />
+      </svg>
+    ),
+  },
 ];
 
 export default function HomeDeploymentsPreview() {
@@ -58,12 +84,12 @@ export default function HomeDeploymentsPreview() {
             Where Pawaac operates today
           </h2>
           <p className="mt-4 text-body font-body text-muted">
-            Borders, facilities, and patrol routes across defense and police
-            deployments.
+            Borders, facilities, and critical sites across defense, police,
+            and industrial deployments.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {SECTORS.map((s, i) => (
             <Reveal key={s.tag} delay={i * 0.1}>
               <div

@@ -5,31 +5,52 @@
 // Design: design.md -> Page Specifications -> Homepage, Section 2
 //         (Field-readiness spec sheet); Shared Components -> Pinned_Spec_Sheet
 //
-// Persona: Defense_Police_Persona. Renders the Pinned_Spec_Sheet shell
-// with `numeral: ""` on every panel so each panel renders the "Pending
-// confirmation" Technical_Data placeholder (Requirement 7.2, 8.3) rather
-// than any real figure. OCP-02 (which numerals may be disclosed) stays
-// open — this task does NOT populate real numerals (see Phase 4, task 41).
+// Persona: Defense_Police_Persona.
+//
+// Site-owner-delegated resolution of OCP-02 (no new Change_Proposal
+// approval fabricated): the site owner has explicitly said not to publish
+// other-drone-line mission/uptime-style figures (e.g. "missions flown",
+// "uptime %") since Pawaac hasn't sold its own USPs yet. Rather than
+// leaving this panel as an indefinite "Pending confirmation" placeholder,
+// this panel is repurposed to surface REAL, already-published hardware
+// numerals that already appear on /product/hawkai (HawkAISpecs.tsx) and
+// /product/sentrivion (SentrivionSpecs.tsx) — no new fact is disclosed
+// here beyond what those two sub-pages already publish verbatim from the
+// HawkAI Plus and Sentrivion brochures. These are confirmed ENGINEERING
+// SPECS, not field-deployment/mission statistics, and the supporting
+// sentence below is worded to make that distinction explicit.
 import PinnedSpecSheet, { SpecPanel } from "@/components/ui/PinnedSpecSheet";
 
 const PANELS: SpecPanel[] = [
   {
-    label: "Flight readiness",
-    numeral: "",
-    supportingSentence:
-      "Hardware already flying real patrol missions, not a lab prototype.",
+    label: "Endurance (thermal)",
+    numeral: "80+",
+    supportingSentence: "Minutes of flight time, HawkAI Plus thermal payload.",
   },
   {
-    label: "Autonomy",
-    numeral: "",
-    supportingSentence:
-      "Detection, planning, and dispatch run onboard without a constant pilot link.",
+    label: "Operational range",
+    numeral: "15",
+    supportingSentence: "Kilometers, HawkAI Plus with antenna extension.",
   },
   {
-    label: "Field operations",
-    numeral: "",
-    supportingSentence:
-      "Docking, recharge, and redeploy cycles run without a human in the loop.",
+    label: "Deployment time",
+    numeral: "<10",
+    supportingSentence: "Minutes from arrival to operational, Sentrivion.",
+  },
+  {
+    label: "Area coverage",
+    numeral: "700+",
+    supportingSentence: "Square kilometers per takeoff point, Sentrivion.",
+  },
+  {
+    label: "Wind resistance",
+    numeral: "45",
+    supportingSentence: "Knots of all-weather resistance, HawkAI Plus.",
+  },
+  {
+    label: "Payload swap time",
+    numeral: "<5",
+    supportingSentence: "Minutes to swap thermal/optical payloads, Sentrivion.",
   },
 ];
 
@@ -43,14 +64,23 @@ export default function HomeSpecSheet() {
       <div className="mx-auto max-w-7xl px-6 pt-24">
         <p className="label">Defense &amp; police</p>
         <h2 className="mt-3 text-heading font-display text-fg">
-          Field-proven, not a lab demo
+          Real hardware, not vaporware
         </h2>
         <p className="mt-4 max-w-md text-body font-body text-muted">
-          Every capability below ships on hardware already flying with real
-          operators.
+          Confirmed HawkAI Plus and Sentrivion platform specs — not
+          field-deployment or mission stats.
         </p>
       </div>
       <PinnedSpecSheet panels={PANELS} className="mt-10" />
+      <div className="mx-auto max-w-7xl px-6 pb-24 pt-4">
+        <a
+          href="/product"
+          className="group inline-flex items-center gap-2 font-mono text-sm text-fg"
+        >
+          See full specifications
+          <span className="transition-transform group-hover:translate-x-1">→</span>
+        </a>
+      </div>
     </section>
   );
 }

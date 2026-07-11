@@ -54,7 +54,11 @@ export default function HomeAutonomyTeaser() {
             }}
           >
             {/* Abstract system-diagram Placeholder_Media (geometric
-                nodes/lines), monochrome only (Requirement 5.1, 5.4) */}
+                node/pipeline diagram), monochrome only (Requirement 5.1,
+                5.4). Denser than the original 4-node sketch: three labeled
+                pipeline stages (Sense / Decide / Act) each with a small
+                sensor cluster feeding a central processing node, plus a
+                faint background grid for technical-schematic texture. */}
             <svg
               aria-hidden="true"
               viewBox="0 0 200 250"
@@ -63,14 +67,40 @@ export default function HomeAutonomyTeaser() {
               stroke="currentColor"
               strokeWidth="1.5"
             >
-              <circle cx="100" cy="60" r="12" />
-              <circle cx="55" cy="140" r="12" />
-              <circle cx="145" cy="140" r="12" />
-              <circle cx="100" cy="200" r="12" />
-              <line x1="100" y1="72" x2="55" y2="128" />
-              <line x1="100" y1="72" x2="145" y2="128" />
-              <line x1="55" y1="152" x2="100" y2="188" />
-              <line x1="145" y1="152" x2="100" y2="188" />
+              {/* faint background grid */}
+              <g opacity="0.25" strokeWidth="0.75">
+                <line x1="0" y1="50" x2="200" y2="50" />
+                <line x1="0" y1="100" x2="200" y2="100" />
+                <line x1="0" y1="150" x2="200" y2="150" />
+                <line x1="0" y1="200" x2="200" y2="200" />
+                <line x1="50" y1="0" x2="50" y2="250" />
+                <line x1="150" y1="0" x2="150" y2="250" />
+              </g>
+
+              {/* Sense cluster */}
+              <circle cx="40" cy="45" r="6" />
+              <circle cx="60" cy="30" r="6" />
+              <circle cx="60" cy="60" r="6" />
+              <line x1="46" y1="45" x2="94" y2="60" />
+              <line x1="65" y1="33" x2="94" y2="60" />
+              <line x1="65" y1="57" x2="94" y2="60" />
+
+              {/* Decide (central node) */}
+              <circle cx="100" cy="70" r="16" strokeWidth="2" />
+              <line x1="100" y1="86" x2="100" y2="130" />
+
+              {/* Act cluster */}
+              <rect x="70" y="150" width="24" height="24" />
+              <rect x="106" y="150" width="24" height="24" />
+              <rect x="142" y="150" width="24" height="24" />
+              <line x1="100" y1="130" x2="82" y2="150" />
+              <line x1="100" y1="130" x2="118" y2="150" />
+              <line x1="100" y1="130" x2="154" y2="150" />
+
+              {/* stage labels */}
+              <text x="20" y="20" fontSize="8" fill="currentColor" stroke="none" letterSpacing="1">SENSE</text>
+              <text x="118" y="66" fontSize="8" fill="currentColor" stroke="none" letterSpacing="1">DECIDE</text>
+              <text x="80" y="195" fontSize="8" fill="currentColor" stroke="none" letterSpacing="1">ACT</text>
             </svg>
             <ReticleFrame variant="dark" />
           </div>
