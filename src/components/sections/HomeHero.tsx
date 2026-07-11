@@ -47,7 +47,13 @@ export default function HomeHero() {
             everywhere else in the section (media block below is
             unaffected — it already has its own opaque background). */}
         <Reveal>
-          <div className="-mx-4 -my-3 inline-block rounded-lg bg-bg/60 px-4 py-3 backdrop-blur-sm md:-mx-6 md:-my-4 md:px-6 md:py-4">
+          {/* bg-bg/60 -> bg-bg/70: a sky photo has bright and dark bands
+              (top vs horizon vs bottom), and with two CTAs now living in
+              this panel it needs slightly more consistent contrast behind
+              text at every scroll/viewport position than the lighter tint
+              provided. Still semi-opaque, not a solid card — the photo
+              stays visible through it everywhere else in the section. */}
+          <div className="-mx-4 -my-3 inline-block rounded-lg bg-bg/70 px-4 py-3 backdrop-blur-sm md:-mx-6 md:-my-4 md:px-6 md:py-4">
             <p className="label">Defense &amp; police</p>
             <h1 className="mt-3 max-w-2xl text-heading font-display text-fg">
               Autonomous perimeter response, built in India
@@ -56,6 +62,34 @@ export default function HomeHero() {
               Pawaac drones patrol, detect, and respond without a pilot on
               every flight.
             </p>
+
+            {/* Founder feedback (live UX review): a sky photo with no
+                action for the visitor doesn't communicate what Pawaac
+                does or what to do next. Two real CTAs, styled from the
+                site's existing button conventions rather than a new
+                pattern:
+                - Primary: HomeContactBand.tsx's filled Request-a-demo
+                  treatment (bg-fg/text-bg, hover:bg-interactive),
+                  resized to match the secondary button's compact
+                  px-4 py-2 / text-[11px] footprint instead of that
+                  section's standalone px-10 py-4 / text-sm scale.
+                - Secondary: Navigation.tsx's exact outline "Request
+                  Demo" treatment (border-fg, hover:bg-fg hover:text-bg),
+                  unchanged. */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="/contact"
+                className="inline-block bg-fg px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-bg transition-colors hover:bg-interactive"
+              >
+                Request a demo
+              </a>
+              <a
+                href="/product"
+                className="inline-block border border-fg px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-fg transition-colors hover:bg-fg hover:text-bg"
+              >
+                Explore the platform
+              </a>
+            </div>
           </div>
         </Reveal>
 
