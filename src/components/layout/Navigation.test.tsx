@@ -96,14 +96,24 @@ describe("Navigation", () => {
   it("renders the 3 linked primary items as <a> tags in DOM order matching their visual order (Requirement 10.4)", () => {
     render(<Navigation />);
 
-    const links = screen.getAllByRole("link");
-    const primaryHrefsInDomOrder = links
-      .map((link) => link.getAttribute("href"))
-      .filter((href) =>
-        EXPECTED_PRIMARY_LINK_ITEMS.some((item) => item.href === href),
-      );
+    // Spec: pawaac-design-language-evolution — Company dropdown follow-up
+    // Requirements: 1.1, 1.5, 10.4
+    //
+    // Scoped to each primary <li>'s *own* trigger element (mirroring the
+    // "exact visual/DOM order" test above), rather than a flat href filter
+    // over every link on the page. This is necessary now that Company's
+    // dropdown includes an "About Us" child that intentionally also points
+    // to /company — a flat href filter would double-count that href and
+    // break this assertion, even though the top-level trigger order itself
+    // is unaffected.
+    const desktopList = document.querySelector("nav > ul");
+    expect(desktopList).not.toBeNull();
+    const topLevelTriggerHrefs = Array.from(desktopList!.children)
+      .map((li) => li.querySelector("a, button"))
+      .filter((el) => el?.tagName === "A")
+      .map((a) => a!.getAttribute("href"));
 
-    expect(primaryHrefsInDomOrder).toEqual(
+    expect(topLevelTriggerHrefs).toEqual(
       EXPECTED_PRIMARY_LINK_ITEMS.map((item) => item.href),
     );
   });
@@ -206,6 +216,54 @@ describe("Navigation Resources dropdown", () => {
       const link = screen.getByRole("link", { name: new RegExp(`^${label}$`) });
       expect(link).not.toHaveAttribute("target");
       expect(link.textContent).not.toContain("opens external site");
+    });
+  });
+});
+
+// User-requested follow-up: the site owner reported "there is no careers
+// page, about us, contact us page in ... Company section" and asked that
+// Company become a dropdown exposing those three, "default company page
+// as well" — mirroring the existing Product/Resources dropdown pattern.
+// Company keeps href="/company" (unlike Resources) so clicking the
+// "Company" label itself still navigates, matching Product's
+// both-link-AND-trigger behavior.
+describe("Navigation Company dropdown", () => {
+  const EXPECTED_COMPANY_SUBLINKS = [
+    { label: "About Us", href: "/company" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact Us", href: "/contact" },
+  ];
+
+  it("renders all 3 Company sub-links with the correct hrefs, in order", () => {
+    render(<Navigation />);
+
+    const links = EXPECTED_COMPANY_SUBLINKS.map((item) =>
+      screen.getByRole("link", { name: item.label }),
+    );
+    links.forEach((link, i) => {
+      expect(link).toHaveAttribute("href", EXPECTED_COMPANY_SUBLINKS[i].href);
+    });
+  });
+
+  it('"Company" itself still renders as a real <a href="/company"> trigger, not a dropdown-only button', () => {
+    render(<Navigation />);
+
+    // getByRole with an exact name excludes the dropdown's "About Us" child
+    // (different accessible name), so this resolves uniquely to the
+    // top-level Company trigger.
+    const companyTrigger = screen.getByRole("link", { name: "Company" });
+    expect(companyTrigger.tagName).toBe("A");
+    expect(companyTrigger).toHaveAttribute("href", "/company");
+    expect(companyTrigger).toHaveAttribute("aria-haspopup", "true");
+  });
+
+  it("every Company sub-link href resolves to a real src/app/**/page.tsx route", () => {
+    const appDir = join(__dirname, "..", "..", "app");
+
+    EXPECTED_COMPANY_SUBLINKS.forEach((item) => {
+      const routeDir = item.href.replace(/^\//, "");
+      const pagePath = join(appDir, routeDir, "page.tsx");
+      expect(existsSync(pagePath)).toBe(true);
     });
   });
 });

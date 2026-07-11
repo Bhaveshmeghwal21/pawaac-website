@@ -44,6 +44,29 @@ const RESOURCES_SUBLINKS = [
 // cannot itself be "the current page", so it is intentionally excluded.
 const RESOURCES_ACTIVE_ROUTES = ["/designer", "/news", "/commitments"];
 
+// Company_Menu dropdown contents, in order (site-owner request: "no
+// careers page, about us, contact us page in ... Company section ... make
+// company as dropdown and put these under that"). Company keeps
+// href="/company" so the "Company" label itself still navigates to the
+// existing Company_Page — following the exact same both-link-AND-trigger
+// pattern already used for Product. The first child, "About Us", is an
+// intentional duplicate destination of the trigger itself (the same
+// convention many sites use: the top-level label and its first dropdown
+// entry both resolve to the same About/company page), while Careers and
+// Contact Us surface the two previously Footer-only pages directly from
+// primary Navigation.
+const COMPANY_SUBLINKS = [
+  { label: "About Us", href: "/company" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact Us", href: "/contact" },
+];
+
+// Routes that drive the Company active-item indicator (Requirement
+// 1.5–1.6, Correctness Property 14), mirroring RESOURCES_ACTIVE_ROUTES:
+// Company now shows active on its own page as well as on either of its
+// two dropdown-only destinations, Careers_Page and Contact_Page.
+const COMPANY_ACTIVE_ROUTES = ["/company", "/careers", "/contact"];
+
 type SubLink = {
   label: string;
   href: string;
@@ -52,10 +75,10 @@ type SubLink = {
 
 // Resources has no own route — it is purely a Label_Caps dropdown trigger
 // (design.md -> Header / Navigation: "each a Label_Caps link or, for
-// Resources, a Label_Caps dropdown trigger"), unlike Product which is both
-// a real link AND a dropdown trigger. `href` is therefore intentionally
-// omitted for Resources; the trigger renders as a <button> rather than an
-// <a> below.
+// Resources, a Label_Caps dropdown trigger"), unlike Product and Company,
+// which are both a real link AND a dropdown trigger. `href` is therefore
+// intentionally omitted for Resources; the trigger renders as a <button>
+// rather than an <a> below.
 const LINKS: {
   label: string;
   href?: string;
@@ -64,7 +87,7 @@ const LINKS: {
   { label: "Product", href: "/product", children: PRODUCT_SUBLINKS },
   { label: "Autonomy", href: "/autonomy" },
   { label: "Resources", children: RESOURCES_SUBLINKS },
-  { label: "Company", href: "/company" },
+  { label: "Company", href: "/company", children: COMPANY_SUBLINKS },
 ];
 
 // External_Link_Marker (Requirement 2.3's marker pattern, reused here per
@@ -129,21 +152,31 @@ export default function Navigation() {
           {LINKS.map((l) => {
             // Requirements: 1.5, 1.6 / Design: Header / Navigation ->
             // Active-item indicator, Correctness Property 14.
-            // Product, Autonomy, and Company are active only on an exact
-            // route match to their own page. Resources has no own route,
-            // so it instead shows active whenever the current route is one
-            // of the three Resources_Menu-linked internal routes
-            // (/designer, /news, /commitments) — Analyser is external and
-            // cannot itself be "the current page", so it does not drive
-            // the indicator. No item is active on Homepage ("/"),
-            // Contact_Page ("/contact"), Careers_Page ("/careers"), or any
-            // other non-matching route (Deployments_Page has been removed
+            // Product and Autonomy are active only on an exact route match
+            // to their own page. Resources has no own route, so it instead
+            // shows active whenever the current route is one of the three
+            // Resources_Menu-linked internal routes (/designer, /news,
+            // /commitments) — Analyser is external and cannot itself be
+            // "the current page", so it does not drive the indicator.
+            // Company mirrors that same pattern: it shows active on its
+            // own page (/company) as well as on either of its two
+            // Company_Menu-linked routes, /careers and /contact, since
+            // those pages are now also reachable from the Company
+            // dropdown. No item is active on Homepage ("/") or any other
+            // non-matching route (Deployments_Page has been removed
             // entirely — task 65).
             const isResourcesActive = RESOURCES_ACTIVE_ROUTES.includes(
               pathname ?? "",
             );
+            const isCompanyActive = COMPANY_ACTIVE_ROUTES.includes(
+              pathname ?? "",
+            );
             const isActive =
-              l.label === "Resources" ? isResourcesActive : pathname === l.href;
+              l.label === "Resources"
+                ? isResourcesActive
+                : l.label === "Company"
+                  ? isCompanyActive
+                  : pathname === l.href;
             const hasChildren = !!l.children?.length;
             const TriggerTag: "a" | "button" = l.href ? "a" : "button";
 
