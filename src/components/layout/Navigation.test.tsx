@@ -58,6 +58,26 @@ describe("Navigation", () => {
     expect(allPrimaryTriggers).toHaveLength(4);
   });
 
+  it("renders the 4 primary items in the exact visual/DOM order — Product, Autonomy, Resources, Company (Requirement 1.1)", () => {
+    // Spec: pawaac-design-language-evolution — Task 17.1
+    // Requirements: 1.1, 1.7
+    //
+    // The two tests above assert hrefs and item count in isolation, but
+    // neither confirms Resources' *position* relative to Product, Autonomy,
+    // and Company (it's a <button>, not an <a>, so it's excluded from the
+    // getAllByRole("link") DOM-order check further below in this file).
+    // This test walks the actual desktop primary-nav <ul> directly and
+    // asserts the full 4-item label order in one place.
+    render(<Navigation />);
+
+    const desktopList = document.querySelector("nav > ul");
+    expect(desktopList).not.toBeNull();
+    const itemLabels = Array.from(desktopList!.children).map(
+      (li) => li.querySelector("a, button")?.textContent?.replace(/▾$/, "").trim(),
+    );
+    expect(itemLabels).toEqual(["Product", "Autonomy", "Resources", "Company"]);
+  });
+
   it('activating "Request Demo" navigates to Contact_Page (/contact) (Requirement 1.7)', () => {
     render(<Navigation />);
 

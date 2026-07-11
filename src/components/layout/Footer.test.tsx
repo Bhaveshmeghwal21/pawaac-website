@@ -37,3 +37,58 @@ describe("Footer", () => {
     expect(analyserLink.textContent).toContain("Beta");
   });
 });
+
+// Spec: pawaac-design-language-evolution — Task 18.1
+// Requirements: 1.3, 1.4, 2.1, 2.2, 2.3
+// Design: design.md -> Shared Components -> Footer; Correctness Property 13
+//   (External-link marker correctness: markerRendered === isExternal)
+//
+// The block above confirms link destinations/text but not the
+// External_Link_Marker's presence/absence per link type. This block adds
+// that explicit assertion — the marker (an aria-hidden "↗" glyph
+// immediately followed by visually-hidden "(opens external site)" text)
+// must render on both external links (Corporate_Site, Analyser) and on
+// neither internal link (Careers, Contact).
+describe("Footer External_Link_Marker placement (Property 13)", () => {
+  it('renders the aria-hidden "↗" marker glyph + visually-hidden "(opens external site)" text on the Corporate_Site link (external)', () => {
+    render(<Footer />);
+    const corporateLink = screen.getByRole("link", {
+      name: /Bajrang Dronetech Pvt Ltd/,
+    });
+    expect(corporateLink.querySelector('[aria-hidden="true"]')).toHaveTextContent("↗");
+    expect(corporateLink).toHaveAccessibleName(
+      "Bajrang Dronetech Pvt Ltd (opens external site)",
+    );
+    expect(corporateLink).toHaveAttribute("target", "_blank");
+    expect(corporateLink).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it('renders the aria-hidden "↗" marker glyph + visually-hidden "(opens external site)" text on the Analyser link (external)', () => {
+    render(<Footer />);
+    const analyserLink = screen.getByRole("link", { name: /Beta/ });
+    expect(analyserLink.querySelector('[aria-hidden="true"]')).toHaveTextContent("↗");
+    expect(analyserLink).toHaveAccessibleName(
+      "Pawaac Analyser (Beta) (opens external site)",
+    );
+    expect(analyserLink).toHaveAttribute("target", "_blank");
+    expect(analyserLink).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("renders no External_Link_Marker and no target on the Careers link (internal)", () => {
+    render(<Footer />);
+    const careersLink = screen.getByRole("link", { name: "Careers" });
+    expect(careersLink.querySelector('[aria-hidden="true"]')).toBeNull();
+    expect(careersLink.textContent).not.toContain("opens external site");
+    expect(careersLink).not.toHaveAttribute("target");
+    expect(careersLink).toHaveAccessibleName("Careers");
+  });
+
+  it("renders no External_Link_Marker and no target on the Contact link (internal)", () => {
+    render(<Footer />);
+    const contactLink = screen.getByRole("link", { name: "Contact" });
+    expect(contactLink.querySelector('[aria-hidden="true"]')).toBeNull();
+    expect(contactLink.textContent).not.toContain("opens external site");
+    expect(contactLink).not.toHaveAttribute("target");
+    expect(contactLink).toHaveAccessibleName("Contact");
+  });
+});
