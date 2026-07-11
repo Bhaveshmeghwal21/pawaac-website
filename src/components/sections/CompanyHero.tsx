@@ -3,67 +3,53 @@
 // Spec: pawaac-design-language-evolution — Task 13 (Company_Page Section 1)
 // Requirements: 1.1, 4.1, 4.3, 5.1, 5.4
 // Design: design.md -> Page Specifications -> Company_Page, Section 1
-//         (Company hero)
+//         (Company hero) — OCP-15 resolved via site-owner-delegated
+//         judgment
 //
-// Persona: Both. Applies the Display_Type oversized background-texture
-// pattern (P1) using the company name, plus a grayscale/geometric
-// Placeholder_Media (P7). This is net-new content — no existing homepage
-// section covers a "company" narrative. Headline and supporting sentence
-// are reproduced verbatim from design.md's table; real team/office
-// photography (OCP-15) stays blocked pending site-owner approval, so this
-// section renders only a monochrome, abstract Placeholder_Media (no real
-// photography, no fabricated company facts such as founding year or team
-// size — Requirement 5.1, 5.4).
+// Persona: Both. Headline and supporting sentence are reproduced verbatim
+// from design.md's table.
+//
+// OCP-15 resolved: no office/HQ photo exists, and fabricating a
+// building/office photo is explicitly out of scope. Rather than leaving
+// this as an abstract-icon placeholder, it is resolved to a purely
+// typographic/graphic hero — a full-bleed Display_Type word-mark/texture
+// treatment is the sole visual, consistent with the other hero sections'
+// Pattern 1 background-texture pattern. No photo is needed: the section's
+// headline is about the company/mission, not a physical location.
 import Reveal from "@/components/ui/Reveal";
 
 export default function CompanyHero() {
   return (
-    <section className="relative overflow-hidden bg-bg px-6 py-28 md:py-36">
-      {/* Display_Type oversized background texture (Pattern 1), purely
-          decorative — hidden from assistive technology per Requirement 10.6 */}
+    <section className="relative overflow-hidden bg-bg px-6 py-32 md:py-44">
+      {/* Display_Type oversized word-mark texture (Pattern 1), rendered as
+          the section's sole visual (resolved OCP-15) — purely decorative,
+          hidden from assistive technology per Requirement 10.6 */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-6 select-none text-center font-display text-[20vw] font-bold uppercase leading-none text-fg/[0.04] md:top-10"
+        className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center font-display text-[16vw] font-bold uppercase leading-none text-fg/[0.05] md:text-[13vw]"
       >
         BAJRANG
       </span>
 
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">
+      {/* Secondary, smaller texture line for depth without implying a
+          third company name — reinforces the graphic/typographic
+          treatment rather than substituting for missing photography. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-6 select-none text-center font-mono text-[9vw] font-semibold uppercase leading-none tracking-tight text-fg/[0.035] md:text-[6vw]"
+      >
+        DRONETECH
+      </span>
+
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
         <Reveal>
           <p className="label">Company</p>
           <h1 className="mt-3 text-heading font-display text-fg">
             Bajrang Dronetech Pvt Ltd
           </h1>
-          <p className="mt-4 max-w-md text-body font-body text-muted">
+          <p className="mx-auto mt-4 max-w-md text-body font-body text-muted">
             The team building Pawaac, engineering autonomy for the field.
           </p>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div
-            aria-hidden="true"
-            className="relative mx-auto w-full max-w-sm grayscale"
-            style={{
-              aspectRatio: "4 / 5",
-              background: "radial-gradient(circle, #181818, #080808)",
-            }}
-          >
-            {/* Placeholder_Media: abstract geometric placeholder (no real
-                team/office photography exists yet, pending OCP-15),
-                4:5 aspect-boxed, monochrome only (Requirement 5.1, 5.4). */}
-            <svg
-              viewBox="0 0 200 250"
-              className="absolute inset-0 h-full w-full p-10 text-fg/50"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <rect x="40" y="40" width="120" height="120" />
-              <line x1="40" y1="40" x2="160" y2="160" />
-              <line x1="160" y1="40" x2="40" y2="160" />
-              <circle cx="100" cy="100" r="30" />
-            </svg>
-          </div>
         </Reveal>
       </div>
     </section>

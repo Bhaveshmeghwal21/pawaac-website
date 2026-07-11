@@ -73,16 +73,18 @@ const PLACEHOLDER_MEDIA_FIXTURE: PlaceholderMediaFixtureEntry[] = [
   {
     page: "Product_Page",
     section: "1. Hero / hardware overview",
-    description: "Geometric drone-outline placeholder, 4:5 aspect-boxed",
-    realAssetPaths: [],
-    changeProposalId: "OCP-06",
+    description:
+      "Resolved via site-owner-delegated judgment: real brochure photo (public/images/hawkai-plus-product-2.jpg), grayscale + Reticle_Frame",
+    realAssetPaths: ["public/images/hawkai-plus-product-2.jpg"],
+    changeProposalId: null,
   },
   {
     page: "Product_Page",
     section: "4. Dock & charging",
-    description: "Abstract geometric dock-diagram placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-08",
+    description:
+      "Resolved via site-owner-delegated judgment: denser generated SVG technical diagram with labeled callouts (dock/charging), not photographic",
+    realAssetPaths: ["generated:product-dock-charging-diagram"],
+    changeProposalId: null,
   },
   // Autonomy_Page
   {
@@ -113,24 +115,27 @@ const PLACEHOLDER_MEDIA_FIXTURE: PlaceholderMediaFixtureEntry[] = [
   {
     page: "Company_Page",
     section: "1. Company hero",
-    description: "Abstract geometric placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-15",
+    description:
+      "Resolved via site-owner-delegated judgment: purely typographic/graphic Display_Type word-mark hero, no photo needed",
+    realAssetPaths: ["generated:company-hero-wordmark"],
+    changeProposalId: null,
   },
   {
     page: "Company_Page",
     section: "3. Team / careers teaser",
-    description: "Abstract geometric placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-16",
+    description:
+      "Resolved via site-owner-delegated judgment: real founders photo (public/images/FoundersPhotoNonProfessional.jpeg), grayscale + Reticle_Frame",
+    realAssetPaths: ["public/images/FoundersPhotoNonProfessional.jpeg"],
+    changeProposalId: null,
   },
   // Careers_Page
   {
     page: "Careers_Page",
     section: "1. Careers hero",
-    description: "Abstract geometric placeholder",
-    realAssetPaths: [],
-    changeProposalId: "OCP-17",
+    description:
+      "Resolved via site-owner-delegated judgment: generated abstract 'join the team' geometric graphic",
+    realAssetPaths: ["generated:careers-hero-join-graphic"],
+    changeProposalId: null,
   },
 ];
 

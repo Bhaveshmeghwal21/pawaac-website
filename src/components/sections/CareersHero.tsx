@@ -3,16 +3,19 @@
 // Spec: pawaac-design-language-evolution — Task 15 (Careers_Page Section 1)
 // Requirements: 1.1, 1.3, 4.1, 5.1, 5.4
 // Design: design.md -> Page Specifications -> Careers_Page, Section 1
-//         (Careers hero)
+//         (Careers hero) — OCP-17 resolved via site-owner-delegated
+//         judgment
 //
 // Persona: Both. Applies the Display_Type oversized background-texture
-// pattern (P1) plus a grayscale/geometric Placeholder_Media (P7). This is
-// net-new content — no existing homepage section covers a "careers"
-// narrative, so there is nothing to migrate here. Headline and supporting
-// sentence are reproduced verbatim from design.md's Careers_Page table.
-// Real careers-hero imagery (OCP-17) stays blocked pending site-owner
-// approval — this section renders only a monochrome, abstract geometric
-// Placeholder_Media, never real photography (Requirement 5.1, 5.4).
+// pattern (P1). Headline and supporting sentence are reproduced verbatim
+// from design.md's Careers_Page table.
+//
+// OCP-17 resolved: no real careers-specific photo exists, and fabricating
+// an office/team photo is out of scope. Resolved with a generated,
+// abstract "join the team" graphic — geometric figure/node cluster
+// converging toward a shared point — rather than an office/team photo
+// that doesn't exist. Pure SVG/CSS, monochrome only (Requirement 5.1,
+// 5.4).
 import Reveal from "@/components/ui/Reveal";
 
 export default function CareersHero() {
@@ -47,9 +50,10 @@ export default function CareersHero() {
               background: "radial-gradient(circle, #181818, #080808)",
             }}
           >
-            {/* Placeholder_Media: abstract geometric placeholder (no real
-                careers-hero imagery exists yet, pending OCP-17), 4:5
-                aspect-boxed, monochrome only (Requirement 5.1, 5.4). */}
+            {/* Generated abstract "join the team" graphic (resolved
+                OCP-17): a cluster of geometric figures/nodes converging
+                toward a shared central point, monochrome only
+                (Requirement 5.1, 5.4). */}
             <svg
               viewBox="0 0 200 250"
               className="absolute inset-0 h-full w-full p-10 text-fg/50"
@@ -57,9 +61,16 @@ export default function CareersHero() {
               stroke="currentColor"
               strokeWidth="1.5"
             >
-              <polygon points="100,40 160,90 140,190 60,190 40,90" />
-              <line x1="100" y1="40" x2="100" y2="190" />
-              <line x1="40" y1="90" x2="160" y2="90" />
+              <circle cx="60" cy="70" r="14" />
+              <circle cx="140" cy="70" r="14" />
+              <circle cx="45" cy="150" r="14" />
+              <circle cx="155" cy="150" r="14" />
+              <circle cx="100" cy="120" r="20" strokeWidth="2" />
+              <line x1="72" y1="80" x2="88" y2="108" />
+              <line x1="128" y1="80" x2="112" y2="108" />
+              <line x1="57" y1="140" x2="83" y2="128" />
+              <line x1="143" y1="140" x2="117" y2="128" />
+              <line x1="100" y1="140" x2="100" y2="190" />
             </svg>
           </div>
         </Reveal>

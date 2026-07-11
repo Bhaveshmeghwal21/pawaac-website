@@ -3,7 +3,8 @@
 // Spec: pawaac-design-language-evolution — Task 59 (News_Page Section 1)
 // Requirements: 4.1, 4.3, 5.1, 5.4
 // Design: design.md -> Page Specifications -> News_Page, Section 1
-//         (News hero / listing)
+//         (News hero / listing) — OCP-19 designed empty state via
+//         site-owner-delegated judgment
 //
 // Persona: Both. Headline and supporting sentence are reproduced verbatim
 // from design.md's table. Applies the Display_Type oversized
@@ -12,11 +13,13 @@
 //
 // OCP-19 (real news content) stays open — this section renders as a
 // structural page only. No fabricated real-sounding headlines/dates are
-// invented; the listing area shows an explicit, honest empty state
-// ("No news yet — check back soon.") rather than any placeholder news
-// item, per the task's instruction to avoid fabricated content
-// (Requirement 5.4, 8.1).
+// invented. Rather than a bare one-line empty state, the listing area now
+// renders an intentionally designed "no news yet" state — a
+// Reticle_Frame-boxed panel with a clear supporting line and a
+// "Get in touch" CTA to /contact — so the empty state feels deliberate
+// rather than unfinished (Requirement 5.4, 8.1).
 import Reveal from "@/components/ui/Reveal";
+import ReticleFrame from "@/components/ui/ReticleFrame";
 
 export default function NewsHero() {
   return (
@@ -43,14 +46,27 @@ export default function NewsHero() {
 
         {/*
           Structural-only listing area. OCP-19 (real news content) stays
-          open, so no real or fabricated news items are rendered here — an
-          honest empty state is shown instead (Requirement 5.4, 8.1).
+          open, so no real or fabricated news items are rendered here — a
+          designed, intentional-feeling empty state is shown instead
+          (Requirement 5.4, 8.1), rather than a bare one-line message.
         */}
         <Reveal delay={0.1}>
-          <div className="mt-16 border border-line px-8 py-16 text-center">
-            <p className="technical-data text-muted">
-              No news yet — check back soon.
+          <div className="relative mx-auto mt-16 max-w-2xl border border-line px-8 py-20 text-center">
+            <ReticleFrame variant="dark" />
+            <p className="label">No news yet</p>
+            <p className="mt-4 text-body font-body text-muted">
+              Check back soon, or get in touch — we&apos;re happy to talk
+              about what we&apos;re building in the meantime.
             </p>
+            <a
+              href="/contact"
+              className="group mt-6 inline-flex items-center gap-2 font-mono text-sm text-fg"
+            >
+              Get in touch
+              <span className="transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </a>
           </div>
         </Reveal>
       </div>

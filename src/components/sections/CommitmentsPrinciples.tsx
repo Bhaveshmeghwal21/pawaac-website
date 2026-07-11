@@ -3,17 +3,45 @@
 // Spec: pawaac-design-language-evolution — Task 60 (Commitments_Page Section 1)
 // Requirements: 4.1, 4.3
 // Design: design.md -> Page Specifications -> Commitments_Page, Section 1
-//         (Our commitments)
+//         (Our commitments) — OCP-20 expanded to generic principles via
+//         site-owner-delegated judgment
 //
 // Persona: Both. Headline and supporting sentence are reproduced verbatim
-// from design.md's table. Reuses the exact same Technical_Data rule-list
-// visual pattern as src/components/sections/AutonomySafeguards.tsx, per the
-// task's instruction.
+// from design.md's table. Reuses the same label + description card
+// pattern as src/components/sections/AutonomySafeguards.tsx.
 //
-// OCP-20 (specific commitment claims/policies) stays open, so this section
-// renders only generic, short, non-specific rule-list labels — no
-// elaboration, no specific policy claim — the same discipline as
-// AutonomySafeguards' placeholder (Requirement 8.1, 8.3).
+// OCP-20 remains open for real, site-owner-approved policy copy — no
+// specific data-retention period, compliance certification, or
+// regulatory claim is fabricated here. Each short label is now paired
+// with one honest, generic, non-specific supporting sentence describing
+// engineering/ethics principles consistent with autonomy safeguards
+// already built and described on Autonomy_Page/Sentrivion (geofencing,
+// operator override, fail-safe recovery, etc.) — this is a "designed"
+// expansion of generic principles, not a disclosure of new specific
+// commitments.
+const PRINCIPLES = [
+  {
+    label: "Human oversight",
+    description:
+      "Every autonomous action can be reviewed and overridden by a human operator.",
+  },
+  {
+    label: "Data minimization",
+    description:
+      "Only the data needed for the mission or safety function is captured and retained.",
+  },
+  {
+    label: "Fail-safe design",
+    description:
+      "Systems default to a safe, controlled state whenever a fault or signal loss occurs.",
+  },
+  {
+    label: "Responsible deployment",
+    description:
+      "Autonomy is scoped to defined geofences and operator-set rules for every mission.",
+  },
+];
+
 export default function CommitmentsPrinciples() {
   return (
     <section className="relative bg-white px-6 py-28 text-[#080808]">
@@ -26,19 +54,17 @@ export default function CommitmentsPrinciples() {
           Our principles for safety, oversight, and data handling.
         </p>
 
-        {/* Technical_Data rule-list styling (Pattern 2), reusing the exact
-            same pattern as AutonomySafeguards.tsx. Generic short labels
-            only — no elaboration, no specific policy claim, pending
-            OCP-20 approval. */}
+        {/* Technical_Data rule-list styling (Pattern 2), reusing the same
+            label + description card pattern as AutonomySafeguards.tsx.
+            One honest, generic supporting sentence per principle — no
+            specific policy claim, pending full OCP-20 approval. */}
         <ul className="mt-12 grid gap-px border border-[#d6d6d6] bg-[#d6d6d6] sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            "Human oversight",
-            "Data minimization",
-            "Fail-safe design",
-            "Responsible deployment",
-          ].map((item) => (
-            <li key={item} className="bg-white p-6">
-              <p className="technical-data text-[#8f8f8f]">{item}</p>
+          {PRINCIPLES.map((item) => (
+            <li key={item.label} className="bg-white p-6">
+              <p className="technical-data text-[#080808]">{item.label}</p>
+              <p className="mt-1 text-[13px] text-[#454545]">
+                {item.description}
+              </p>
             </li>
           ))}
         </ul>

@@ -3,18 +3,24 @@
 // Spec: pawaac-design-language-evolution — Task 13 (Company_Page Section 3)
 // Requirements: 1.1, 4.1, 4.3, 5.1, 5.4
 // Design: design.md -> Page Specifications -> Company_Page, Section 3
-//         (Team / careers teaser)
+//         (Team / careers teaser) — OCP-16 resolved via
+//         site-owner-delegated judgment
 //
-// Persona: Both. Grayscale/geometric Placeholder_Media (P7) — real team
-// photography (OCP-16) stays blocked pending site-owner approval. Links to
-// Careers_Page (`/careers`); that route is created by task 15 and does not
-// exist yet as of this task — Next.js does not validate link targets at
-// build time, so this link is safe to add now and will resolve once task
-// 15 lands. A plain `<a href="/careers">` is used here for consistency
-// with every other internal link in this codebase (Navigation.tsx,
-// Footer.tsx, and the other page-section components all use plain `<a>`
-// rather than `next/link`).
+// Persona: Both. Links to Careers_Page (`/careers`). A plain
+// `<a href="/careers">` is used here for consistency with every other
+// internal link in this codebase (Navigation.tsx, Footer.tsx, and the
+// other page-section components all use plain `<a>` rather than
+// `next/link`).
+//
+// OCP-16 resolved: wires in the real `public/images/FoundersPhotoNonProfessional.jpeg`
+// asset the site owner uploaded specifically for this purpose. Rendered
+// with the site's standard grayscale filter + Reticle_Frame convention.
+// Captioned honestly and generically ("The founding team") — no specific
+// names, titles, or headcount figures are added (per the standing
+// team-size no-disclosure rule).
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
+import ReticleFrame from "@/components/ui/ReticleFrame";
 
 export default function CompanyTeam() {
   return (
@@ -38,31 +44,25 @@ export default function CompanyTeam() {
 
         <Reveal delay={0.1}>
           <div
-            aria-hidden="true"
-            className="relative mx-auto w-full max-w-sm grayscale"
-            style={{
-              aspectRatio: "16 / 9",
-              background: "radial-gradient(circle, #181818, #080808)",
-            }}
+            className="relative mx-auto w-full max-w-sm"
+            style={{ aspectRatio: "16 / 9" }}
           >
-            {/* Placeholder_Media: abstract geometric placeholder (no real
-                team photography exists yet, pending OCP-16), 16:9
-                aspect-boxed, monochrome only (Requirement 5.1, 5.4). */}
-            <svg
-              viewBox="0 0 220 124"
-              className="absolute inset-0 h-full w-full p-8 text-fg/50"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <circle cx="70" cy="62" r="18" />
-              <circle cx="110" cy="50" r="18" />
-              <circle cx="150" cy="62" r="18" />
-              <line x1="70" y1="80" x2="70" y2="104" />
-              <line x1="110" y1="68" x2="110" y2="104" />
-              <line x1="150" y1="80" x2="150" y2="104" />
-            </svg>
+            {/* Real founders photo (resolved OCP-16), grayscale
+                resting-state filter per the site's monochrome pattern
+                (Requirement 3.1-3.2). Honest, generic caption below — no
+                names, titles, or headcount figures. */}
+            <Image
+              src="/images/FoundersPhotoNonProfessional.jpeg"
+              alt="The founding team"
+              fill
+              sizes="(min-width: 768px) 384px, 90vw"
+              className="object-cover grayscale"
+            />
+            <ReticleFrame variant="dark" />
           </div>
+          <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+            The founding team
+          </p>
         </Reveal>
       </div>
     </section>
