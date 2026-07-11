@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
-// Spec: pawaac-design-language-evolution — Task 59 (News_Page route)
+// Spec: pawaac-design-language-evolution — Task 59 (News_Page route),
+// updated for News_Page real content (resolves OCP-19)
 // Requirements: 4.1, 4.3, 5.1, 5.4
 // Design: design.md -> Page Specifications -> News_Page
 //
-// Establishes the new `/news` route, linked from Navigation's Resources
-// dropdown (task 57). This is entirely net-new, structural content — OCP-19
-// (real news content) stays open, so no real or fabricated news items are
-// published here; see NewsHero.tsx for the honest empty-state listing area.
+// The `/news` route (linked from Navigation's Resources dropdown, task 57)
+// now renders a real news listing — OCP-19 is RESOLVED; see NewsHero.tsx /
+// NewsList.tsx for the real, founder-approved news item.
 import NewsHero from "@/components/sections/NewsHero";
 
 export const metadata: Metadata = {
