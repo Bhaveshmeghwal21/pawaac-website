@@ -57,7 +57,7 @@ export default function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] -ml-[5px] -mt-[5px] h-2.5 w-2.5 rounded-full bg-red shadow-[0_0_0_2px_rgba(240,237,232,0.7)]"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] -ml-[5px] -mt-[5px] h-2.5 w-2.5 rounded-full bg-white shadow-[0_0_0_2px_rgba(237,237,237,0.7)]"
       />
       <div
         ref={ringRef}
@@ -68,14 +68,14 @@ export default function CustomCursor() {
           marginLeft: -size / 2,
           marginTop: -size / 2,
           backgroundColor:
-            variant === "hover" ? "rgba(232,32,42,0.2)" : "transparent",
-          borderColor: variant === "crosshair" ? "#e8202a" : "rgba(240,237,232,0.85)",
+            variant === "hover" ? "rgba(184,184,184,0.2)" : "transparent",
+          borderColor: variant === "crosshair" ? "#b8b8b8" : "rgba(237,237,237,0.85)",
         }}
       >
         {variant === "crosshair" && (
           <>
-            <span className="absolute h-full w-px bg-red/70" />
-            <span className="absolute h-px w-full bg-red/70" />
+            <span className="absolute h-full w-px bg-white/70" />
+            <span className="absolute h-px w-full bg-white/70" />
           </>
         )}
       </div>

@@ -16,7 +16,7 @@ export default function Vision() {
         <source src="/videos/vision.webm" type="video/webm" />
         <source src="/videos/vision.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,#15171c,#080808)] opacity-90" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,#181818,#080808)] opacity-90" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
@@ -37,14 +37,14 @@ export default function Vision() {
         <span className="mx-auto my-8 block h-px w-20 bg-fg/40" />
         <div className="flex flex-wrap justify-center gap-4">
           <a
-            href="#contact"
-            className="bg-red px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
+            href="/contact"
+            className="bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Request a Demo
           </a>
           <a
-            href="#contact"
-            className="border border-red px-6 py-3 text-sm font-semibold text-red transition hover:bg-red hover:text-white"
+            href="/contact"
+            className="border border-fg px-6 py-3 text-sm font-semibold text-fg transition hover:bg-fg hover:text-bg"
           >
             Talk to Investors
           </a>

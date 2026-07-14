@@ -42,7 +42,7 @@ export default function Preloader() {
               <motion.path
                 d={LOGO_PATH}
                 fill="none"
-                stroke="#f0ede8"
+                stroke="#ededed"
                 strokeWidth={2}
                 strokeOpacity={0.85}
                 vectorEffect="non-scaling-stroke"
@@ -66,7 +66,7 @@ export default function Preloader() {
               <motion.path
                 d={LOGO_PATH}
                 stroke="none"
-                fill="#f0ede8"
+                fill="#ededed"
                 initial={{ fillOpacity: 0 }}
                 animate={{ fillOpacity: 1 }}
                 transition={{ delay: 1.45, duration: 0.5, ease: "easeOut" }}

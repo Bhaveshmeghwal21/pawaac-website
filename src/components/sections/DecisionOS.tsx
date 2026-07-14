@@ -63,7 +63,7 @@ export default function DecisionOS() {
             viewBox="0 0 1000 10"
             preserveAspectRatio="none"
           >
-            <path ref={line} d="M0 5 L1000 5" stroke="#e8202a" strokeWidth="2" fill="none" />
+            <path ref={line} d="M0 5 L1000 5" stroke="#ededed" strokeWidth="2" fill="none" />
           </svg>
 
           <div className="relative grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
@@ -76,7 +76,7 @@ export default function DecisionOS() {
                 transition={{ delay: i * 0.08 }}
                 className="border border-line bg-surface p-4"
               >
-                <span className="font-mono text-2xl font-semibold text-red">{i + 1}</span>
+                <span className="font-mono text-2xl font-semibold text-white">{i + 1}</span>
                 <p className="mt-2 text-sm text-fg">{s}</p>
               </motion.div>
             ))}
@@ -89,7 +89,7 @@ export default function DecisionOS() {
             <div className="flex items-center justify-between border-b border-line px-4 py-2 font-mono text-[11px] text-muted">
               <span className="text-fg">PAWAAC DECISION OS</span>
               <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-green" />
+                <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-fg" />
                 MISSION ACTIVE · 3 UNITS DEPLOYED
               </span>
             </div>
@@ -100,13 +100,13 @@ export default function DecisionOS() {
                   className="absolute inset-0 opacity-20"
                   style={{
                     backgroundImage:
-                      "linear-gradient(#3b82f6 1px,transparent 1px),linear-gradient(90deg,#3b82f6 1px,transparent 1px)",
+                      "linear-gradient(#8a8a8a 1px,transparent 1px),linear-gradient(90deg,#8a8a8a 1px,transparent 1px)",
                     backgroundSize: "32px 32px",
                   }}
                 />
-                <span className="absolute left-[40%] top-[45%] h-3 w-3 animate-pulse-dot rounded-full bg-red shadow-[0_0_12px_#e8202a]" />
-                <span className="absolute left-[65%] top-[60%] h-2 w-2 rounded-full bg-green" />
-                <span className="absolute left-[25%] top-[70%] h-2 w-2 rounded-full bg-green" />
+                <span className="absolute left-[40%] top-[45%] h-3 w-3 animate-pulse-dot rounded-full bg-white shadow-[0_0_12px_#ffffff]" />
+                <span className="absolute left-[65%] top-[60%] h-2 w-2 rounded-full bg-fg" />
+                <span className="absolute left-[25%] top-[70%] h-2 w-2 rounded-full bg-fg" />
               </div>
               {/* Sidebar */}
               <div className="bg-bg p-4">
@@ -114,7 +114,7 @@ export default function DecisionOS() {
                 {["Unit-02 reached waypoint", "New entity classified: vehicle", "Patrol loop completed"].map(
                   (a, i) => (
                     <p key={i} className="mb-2 font-mono text-[11px] text-muted">
-                      <span className="text-green">●</span> {a}
+                      <span className="text-fg">●</span> {a}
                     </p>
                   )
                 )}

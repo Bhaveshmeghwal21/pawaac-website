@@ -7,14 +7,14 @@ type Cat = "Deployments" | "Hardware" | "Team";
 const FILTERS = ["All", "Deployments", "Hardware", "Team"] as const;
 
 const ITEMS: { cat: Cat; caption: string; meta: string; h: number; grad: string }[] = [
-  { cat: "Deployments", caption: "Border Field Test", meta: "Tawang · May 2025", h: 280, grad: "from-[#1b2230] to-[#080808]" },
-  { cat: "Hardware", caption: "e-VTOL Airframe", meta: "Bengaluru Lab", h: 200, grad: "from-[#26282d] to-[#0c0c0c]" },
-  { cat: "Team", caption: "Field Operations", meta: "Bengaluru · 2025", h: 240, grad: "from-[#241a1b] to-[#0a0a0a]" },
-  { cat: "Deployments", caption: "Night Patrol", meta: "Northern Unit", h: 320, grad: "from-[#101820] to-[#060606]" },
-  { cat: "Hardware", caption: "Docking Station", meta: "ASC Bangalore", h: 220, grad: "from-[#1d1f24] to-[#0a0a0a]" },
-  { cat: "Deployments", caption: "Aerial Survey", meta: "Kerala · KSIE", h: 260, grad: "from-[#15211c] to-[#070707]" },
-  { cat: "Team", caption: "Command Post", meta: "Bengaluru HQ", h: 200, grad: "from-[#201c28] to-[#090909]" },
-  { cat: "Hardware", caption: "30× Gimbal Camera", meta: "Hardware Bay", h: 300, grad: "from-[#22242a] to-[#0b0b0b]" },
+  { cat: "Deployments", caption: "Border Field Test", meta: "Tawang · May 2025", h: 280, grad: "from-[#282828] to-[#080808]" },
+  { cat: "Hardware", caption: "e-VTOL Airframe", meta: "Bengaluru Lab", h: 200, grad: "from-[#292929] to-[#0c0c0c]" },
+  { cat: "Team", caption: "Field Operations", meta: "Bengaluru · 2025", h: 240, grad: "from-[#242424] to-[#0a0a0a]" },
+  { cat: "Deployments", caption: "Night Patrol", meta: "Northern Unit", h: 320, grad: "from-[#1c1c1c] to-[#060606]" },
+  { cat: "Hardware", caption: "Docking Station", meta: "ASC Bangalore", h: 220, grad: "from-[#202020] to-[#0a0a0a]" },
+  { cat: "Deployments", caption: "Aerial Survey", meta: "Kerala · KSIE", h: 260, grad: "from-[#1a1a1a] to-[#070707]" },
+  { cat: "Team", caption: "Command Post", meta: "Bengaluru HQ", h: 200, grad: "from-[#242424] to-[#090909]" },
+  { cat: "Hardware", caption: "30× Gimbal Camera", meta: "Hardware Bay", h: 300, grad: "from-[#262626] to-[#0b0b0b]" },
 ];
 
 export default function Gallery() {
@@ -58,7 +58,7 @@ export default function Gallery() {
               onClick={() => setFilter(f)}
               className={`border px-4 py-1.5 font-mono text-[11px] uppercase tracking-wide transition ${
                 filter === f
-                  ? "border-red bg-red text-white"
+                  ? "border-white bg-white text-black"
                   : "border-line text-muted hover:text-fg"
               }`}
             >
@@ -78,7 +78,7 @@ export default function Gallery() {
                 exit={{ opacity: 0 }}
                 onClick={() => setActive(it.i)}
                 style={{ height: it.h }}
-                className={`group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-sm border-2 border-transparent bg-gradient-to-br text-left transition hover:border-red ${it.grad}`}
+                className={`group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-sm border-2 border-transparent bg-gradient-to-br text-left transition hover:border-fg/60 ${it.grad}`}
               >
                 <span className="absolute right-2 top-2 font-mono text-[9px] uppercase tracking-wide text-muted">
                   {it.cat}

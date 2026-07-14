@@ -17,14 +17,14 @@ export type Bounds = { sw: [number, number]; ne: [number, number] };
 
 const handle = L.divIcon({
   className: "",
-  html: '<span style="display:block;width:14px;height:14px;background:#e8202a;border:2px solid #f0ede8;box-shadow:0 0 0 2px #080808"></span>',
+  html: '<span style="display:block;width:14px;height:14px;background:#ffffff;border:2px solid #080808;box-shadow:0 0 0 2px #080808"></span>',
   iconSize: [14, 14],
   iconAnchor: [7, 7],
 });
 
 const dockIcon = L.divIcon({
   className: "",
-  html: '<span style="display:block;width:12px;height:12px;border-radius:9999px;background:#e8202a;border:2px solid #ffffff;box-shadow:0 0 0 1.5px #080808"></span>',
+  html: '<span style="display:block;width:12px;height:12px;border-radius:9999px;background:#ffffff;border:2px solid #080808;box-shadow:0 0 0 1.5px #080808"></span>',
   iconSize: [12, 12],
   iconAnchor: [6, 6],
 });
@@ -72,17 +72,17 @@ export default function MapCanvas({
           key={`c${d.id}`}
           center={[d.lat, d.lng]}
           radius={radiusM}
-          pathOptions={{ color: "#e8202a", weight: 1, fillColor: "#e8202a", fillOpacity: 0.06 }}
+          pathOptions={{ color: "#ffffff", weight: 1, fillColor: "#ffffff", fillOpacity: 0.06 }}
         />
       ))}
 
       <Rectangle
         bounds={rect}
         pathOptions={{
-          color: "#f0ede8",
+          color: "#ededed",
           weight: 1.5,
           dashArray: "6 6",
-          fillColor: "#f0ede8",
+          fillColor: "#ededed",
           fillOpacity: 0.04,
         }}
       />

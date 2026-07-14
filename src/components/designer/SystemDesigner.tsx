@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import type { Bounds, Dock } from "@/components/designer/MapCanvas";
+import ReticleFrame from "@/components/ui/ReticleFrame";
 
 const MapCanvas = dynamic(() => import("@/components/designer/MapCanvas"), {
   ssr: false,
@@ -24,13 +25,20 @@ const CORNERS = [
 ];
 
 // ~400m square around a point, scaled so it stays square in meters
-function siteBounds(lat: number, lng: number): Bounds {
+//
+// Spec: pawaac-design-language-evolution — Task 38.1 (Verify page-split
+// migration: Planner_Page coverage math)
+// Requirements: 9.3
+// `export`ed (pure refactor, no logic change) so the coverage-area math can
+// be unit-tested directly without rendering the full SystemDesigner/
+// MapCanvas tree (which requires a Leaflet/DOM environment).
+export function siteBounds(lat: number, lng: number): Bounds {
   const dLat = 0.0018;
   const dLng = dLat / Math.max(0.2, Math.cos(lat * TO_R));
   return { sw: [lat - dLat, lng - dLng], ne: [lat + dLat, lng + dLng] };
 }
 
-function dims(b: Bounds) {
+export function dims(b: Bounds) {
   const midLat = ((b.sw[0] + b.ne[0]) / 2) * TO_R;
   const widthM = Math.abs((b.ne[1] - b.sw[1]) * TO_R * Math.cos(midLat) * EARTH);
   const heightM = Math.abs((b.ne[0] - b.sw[0]) * TO_R * EARTH);
@@ -111,13 +119,23 @@ export default function SystemDesigner() {
   if (!bounds) {
     return (
       <div className="relative flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-bg px-6">
+        {/* Display_Type oversized background texture (Pattern 1), purely
+            decorative — hidden from assistive technology per Requirement 10.6.
+            Spec: pawaac-design-language-evolution — Task 20 (Planner_Page
+            Section 1). Requirements: 4.1, 4.3, 9.3, 9.4, 9.5. */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center font-display text-[22vw] font-bold uppercase leading-none text-fg/[0.04]"
+        >
+          PLANNER
+        </span>
         <div className="relative w-full max-w-md border border-line bg-surface/70 p-8 backdrop-blur-md">
           {CORNERS.map((c) => (
             <span key={c} className={`absolute h-2.5 w-2.5 border-fg/60 ${c}`} />
           ))}
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[11px] tracking-widest text-red">[ SYS ]</span>
-            <span className="h-px w-8 bg-red/40" />
+            <span className="font-mono text-[11px] tracking-widest text-fg">[ SYS ]</span>
+            <span className="h-px w-8 bg-fg/40" />
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
               Coverage Planner
             </span>
@@ -131,7 +149,7 @@ export default function SystemDesigner() {
 
           <button
             onClick={requestLocation}
-            className="mt-6 w-full bg-red px-5 py-3 text-sm font-semibold text-white transition hover:brightness-110"
+            className="mt-6 w-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Use my current location
           </button>
@@ -145,7 +163,7 @@ export default function SystemDesigner() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Enter an address or city"
-              className="w-full border border-line bg-bg px-3 py-2.5 font-mono text-sm text-fg outline-none transition placeholder:text-muted focus:border-red"
+              className="w-full border border-line bg-bg px-3 py-2.5 font-mono text-sm text-fg outline-none transition placeholder:text-muted focus:border-interactive"
             />
             <button
               type="submit"
@@ -155,7 +173,7 @@ export default function SystemDesigner() {
             </button>
           </form>
 
-          {status && <p className="mt-3 font-mono text-[11px] text-red">{status}</p>}
+          {status && <p className="mt-3 font-mono text-[11px] text-fg">{status}</p>}
         </div>
       </div>
     );
@@ -164,6 +182,22 @@ export default function SystemDesigner() {
   // ── Step 2: design the docking system ─────────────────
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden bg-bg">
+      {/* Display_Type oversized background texture (Pattern 1), purely
+          decorative — hidden from assistive technology per Requirement 10.6.
+          Spec: pawaac-design-language-evolution — Task 20 (Planner_Page
+          Section 1). Requirements: 4.1, 4.3, 9.3, 9.4, 9.5. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-1/2 z-[1] -translate-y-1/2 select-none text-center font-display text-[22vw] font-bold uppercase leading-none text-fg/[0.03]"
+      >
+        PLANNER
+      </span>
+
+      {/* Map/tool container — Reticle_Frame (P4) wraps the interactive map
+          shell per Task 20. Existing SystemDesigner/MapCanvas coverage
+          math, address search, and drag-reposition logic below are
+          unchanged (Requirement 9.3-9.5); this only adds a decorative,
+          aria-hidden corner-frame overlay. */}
       <div className="absolute inset-0 z-0">
         <MapCanvas
           bounds={bounds}
@@ -172,11 +206,12 @@ export default function SystemDesigner() {
           onChange={setBounds}
           onDockMove={moveDock}
         />
+        <ReticleFrame variant="dark" />
       </div>
 
       <div className="pointer-events-none absolute left-6 top-20 z-[400] flex items-center gap-3">
-        <span className="font-mono text-[11px] tracking-widest text-red">[ SYS ]</span>
-        <span className="h-px w-8 bg-red/40" />
+        <span className="font-mono text-[11px] tracking-widest text-fg">[ SYS ]</span>
+        <span className="h-px w-8 bg-fg/40" />
         <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
           Coverage Planner
         </span>
@@ -227,7 +262,7 @@ export default function SystemDesigner() {
               step={25}
               value={radiusM}
               onChange={(e) => setRadiusM(parseInt(e.target.value))}
-              className="mt-2 w-full accent-red"
+              className="mt-2 w-full accent-white"
             />
             <p className="mt-2 font-mono text-[9px] leading-relaxed text-muted">
               Longer drone range means each station covers more ground, so fewer stations
@@ -240,7 +275,7 @@ export default function SystemDesigner() {
               Docking stations
             </span>
             <div className="mt-1 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-bold text-red">{docks.length}</span>
+              <span className="font-display text-5xl font-bold text-white">{docks.length}</span>
               <span className="font-mono text-[11px] text-muted">suggested</span>
             </div>
             <p className="mt-2 font-mono text-[10px] leading-relaxed text-muted">
@@ -250,8 +285,8 @@ export default function SystemDesigner() {
           </div>
 
           <a
-            href="/#contact"
-            className="mt-5 block bg-red px-5 py-3 text-center text-sm font-semibold text-white transition hover:brightness-110"
+            href="/contact"
+            className="mt-5 block bg-white px-5 py-3 text-center text-sm font-semibold text-black transition hover:bg-interactive"
           >
             Request this deployment
           </a>
@@ -260,10 +295,10 @@ export default function SystemDesigner() {
 
       <div className="absolute bottom-4 left-4 z-[400] hidden items-center gap-4 border border-line bg-surface/80 px-4 py-2 font-mono text-[10px] text-muted backdrop-blur-md sm:flex">
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-red" /> Docking station
+          <span className="h-2 w-2 rounded-full bg-white" /> Docking station
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-3 border border-red/60 bg-red/10" /> Drone coverage
+          <span className="h-2 w-3 border border-fg/60 bg-fg/10" /> Drone coverage
         </span>
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-3 border border-dashed border-fg/60" /> Survey zone
