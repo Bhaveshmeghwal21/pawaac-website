@@ -64,7 +64,7 @@ export default function HomeSpecSheet() {
       <div className="mx-auto max-w-7xl px-6 pt-24">
         <p className="label">Defense &amp; police</p>
         <h2 className="mt-3 text-heading font-display text-fg">
-          Real hardware, not vaporware
+          Built for demanding environments
         </h2>
         <p className="mt-4 max-w-md text-body font-body text-muted">
           Confirmed HawkAI Plus and Sentrivion platform specs — not
