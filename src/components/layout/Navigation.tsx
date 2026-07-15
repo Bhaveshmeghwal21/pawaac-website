@@ -11,8 +11,8 @@ import Logo from "@/components/ui/Logo";
 //
 // Exactly 4 primary items, in this order, pointing to real Pawaac_Site
 // routes/dropdowns. Deployments was removed from primary Navigation (moved
-// to Footer-only, task 58, Requirement 1.8); Planner moved from a primary
-// item into the new Resources dropdown below.
+// to Footer-only, task 58, Requirement 1.8); Planner and Log Analyser live
+// under Resources, while News and Our Commitments live under Company.
 //
 // "Product" carries a dropdown exposing the 4 product lines. The 4th line
 // is named "HawkAI" (site owner has finalized the name; previously
@@ -35,14 +35,12 @@ const RESOURCES_SUBLINKS = [
     href: "https://analyse.bajrangdrone.tech",
     external: true,
   },
-  { label: "News", href: "/news" },
-  { label: "Our Commitments", href: "/commitments" },
 ];
 
 // Routes that drive the Resources active-item indicator (Requirement
 // 1.5–1.6, Correctness Property 14). Analyser is external and therefore
 // cannot itself be "the current page", so it is intentionally excluded.
-const RESOURCES_ACTIVE_ROUTES = ["/designer", "/news", "/commitments"];
+const RESOURCES_ACTIVE_ROUTES = ["/designer"];
 
 // Company_Menu dropdown contents, in order (site-owner request: "no
 // careers page, about us, contact us page in ... Company section ... make
@@ -52,20 +50,27 @@ const RESOURCES_ACTIVE_ROUTES = ["/designer", "/news", "/commitments"];
 // pattern already used for Product. The first child, "About Us", is an
 // intentional duplicate destination of the trigger itself (the same
 // convention many sites use: the top-level label and its first dropdown
-// entry both resolve to the same About/company page), while Careers and
-// Contact Us surface the two previously Footer-only pages directly from
-// primary Navigation.
+// entry both resolve to the same About/company page). News and Our
+// Commitments are also grouped here as company-facing pages.
 const COMPANY_SUBLINKS = [
   { label: "About Us", href: "/company" },
   { label: "Careers", href: "/careers" },
   { label: "Contact Us", href: "/contact" },
+  { label: "News", href: "/news" },
+  { label: "Our Commitments", href: "/commitments" },
 ];
 
 // Routes that drive the Company active-item indicator (Requirement
 // 1.5–1.6, Correctness Property 14), mirroring RESOURCES_ACTIVE_ROUTES:
-// Company now shows active on its own page as well as on either of its
-// two dropdown-only destinations, Careers_Page and Contact_Page.
-const COMPANY_ACTIVE_ROUTES = ["/company", "/careers", "/contact"];
+// Company now shows active on its own page as well as on its dropdown-linked
+// company pages: Careers, Contact, News, and Our Commitments.
+const COMPANY_ACTIVE_ROUTES = [
+  "/company",
+  "/careers",
+  "/contact",
+  "/news",
+  "/commitments",
+];
 
 type SubLink = {
   label: string;
@@ -154,15 +159,11 @@ export default function Navigation() {
             // Active-item indicator, Correctness Property 14.
             // Product and Autonomy are active only on an exact route match
             // to their own page. Resources has no own route, so it instead
-            // shows active whenever the current route is one of the three
-            // Resources_Menu-linked internal routes (/designer, /news,
-            // /commitments) — Analyser is external and cannot itself be
-            // "the current page", so it does not drive the indicator.
-            // Company mirrors that same pattern: it shows active on its
-            // own page (/company) as well as on either of its two
-            // Company_Menu-linked routes, /careers and /contact, since
-            // those pages are now also reachable from the Company
-            // dropdown. No item is active on Homepage ("/") or any other
+            // shows active on its Planner route — Analyser is external and
+            // cannot itself be "the current page", so it does not drive the
+            // indicator. Company shows active on its own page and on its
+            // Company_Menu-linked routes: Careers, Contact, News, and Our
+            // Commitments. No item is active on Homepage ("/") or any other
             // non-matching route (Deployments_Page has been removed
             // entirely — task 65).
             const isResourcesActive = RESOURCES_ACTIVE_ROUTES.includes(

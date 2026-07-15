@@ -177,18 +177,16 @@ describe("Navigation route wiring (Requirement 1.1)", () => {
 //   (Resources_Menu dropdown contents)
 //
 // Analogous to the "Navigation Product dropdown" block above: Resources
-// exposes a dropdown with 4 sublinks (Planner, Log Analyser, News, Our
-// Commitments). Log Analyser is external and carries the
-// External_Link_Marker treatment; the other 3 do not.
+// exposes a dropdown with 2 sublinks (Planner and Log Analyser). Log Analyser
+// is external and carries the External_Link_Marker treatment; Planner does
+// not.
 describe("Navigation Resources dropdown", () => {
   const EXPECTED_RESOURCES_SUBLINKS = [
     { label: "Planner", href: "/designer" },
     { label: "Log Analyser", href: "https://analyse.bajrangdrone.tech" },
-    { label: "News", href: "/news" },
-    { label: "Our Commitments", href: "/commitments" },
   ];
 
-  it("renders all 4 Resources sublinks with the correct hrefs", () => {
+  it("renders all 2 Resources sublinks with the correct hrefs", () => {
     render(<Navigation />);
 
     EXPECTED_RESOURCES_SUBLINKS.forEach((item) => {
@@ -208,10 +206,10 @@ describe("Navigation Resources dropdown", () => {
     );
   });
 
-  it("does not render the External_Link_Marker on Planner, News, or Our Commitments", () => {
+  it("does not render the External_Link_Marker on Planner", () => {
     render(<Navigation />);
 
-    const internalLabels = ["Planner", "News", "Our Commitments"];
+    const internalLabels = ["Planner"];
     internalLabels.forEach((label) => {
       const link = screen.getByRole("link", { name: new RegExp(`^${label}$`) });
       expect(link).not.toHaveAttribute("target");
@@ -226,15 +224,18 @@ describe("Navigation Resources dropdown", () => {
 // as well" — mirroring the existing Product/Resources dropdown pattern.
 // Company keeps href="/company" (unlike Resources) so clicking the
 // "Company" label itself still navigates, matching Product's
-// both-link-AND-trigger behavior.
+// both-link-AND-trigger behavior. News and Our Commitments are grouped here
+// with the other company-facing pages.
 describe("Navigation Company dropdown", () => {
   const EXPECTED_COMPANY_SUBLINKS = [
     { label: "About Us", href: "/company" },
     { label: "Careers", href: "/careers" },
     { label: "Contact Us", href: "/contact" },
+    { label: "News", href: "/news" },
+    { label: "Our Commitments", href: "/commitments" },
   ];
 
-  it("renders all 3 Company sub-links with the correct hrefs, in order", () => {
+  it("renders all 5 Company sub-links with the correct hrefs, in order", () => {
     render(<Navigation />);
 
     const links = EXPECTED_COMPANY_SUBLINKS.map((item) =>
