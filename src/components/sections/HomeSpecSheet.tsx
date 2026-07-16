@@ -20,6 +20,7 @@
 // SPECS, not field-deployment/mission statistics, and the supporting
 // sentence below is worded to make that distinction explicit.
 import PinnedSpecSheet, { SpecPanel } from "@/components/ui/PinnedSpecSheet";
+import StaggerHeading from "@/components/ui/StaggerHeading";
 
 const PANELS: SpecPanel[] = [
   {
@@ -63,9 +64,10 @@ export default function HomeSpecSheet() {
     <section className="relative bg-bg/50">
       <div className="mx-auto max-w-7xl px-6 pt-24">
         <p className="label">Defense &amp; police</p>
-        <h2 className="mt-3 text-heading font-display text-fg">
-          Built for demanding environments
-        </h2>
+        <StaggerHeading
+          text="Building for demanding environments"
+          className="mt-3 text-heading font-display text-fg"
+        />
         <p className="mt-4 max-w-md text-body font-body text-muted">
           Confirmed HawkAI Plus and Sentrivion platform specs — not
           field-deployment or mission stats.

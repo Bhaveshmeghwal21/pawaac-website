@@ -6,8 +6,31 @@
 //         (Autonomy stack teaser)
 //
 // Persona: Both. Oversized numeral/word-fragment background texture (P1),
-// Reticle_Frame on an abstract diagram (P4), linking to Autonomy_Page
+// Reticle_Frame on the media block (P4), linking to Autonomy_Page
 // (/autonomy, task 11). No Change_Proposal gates this section.
+//
+// Media update (site-owner-supplied asset, current session): the abstract
+// Sense/Decide/Act node-diagram Placeholder_Media is replaced with
+// gcs.png — a composite concept image (real drone/ground footage combined
+// with a designed ground-control-station UI overlay) showing target
+// tracking IDs, an "ARMED" weapons-status indicator, and flight commands
+// (TAKEOFF/HOLD/RTL/LAND). Site-owner-confirmed: this is NOT a screenshot
+// of an existing, working system — it is a composite mockup of where the
+// product is heading. Per this codebase's existing Simulated_Label
+// convention (src/lib/validators/simulatedLabel.ts — any UI-like readout
+// that could be mistaken for a live/working capability must be explicitly
+// labeled), a visible "Concept interface — in development" caption is
+// rendered directly under the image (same wrapper, not a separately
+// positioned block) so it cannot be read as an existing capability claim,
+// which matters in particular for the "ARMED"/weapons framing shown in
+// the mockup. The media box's aspect-ratio matches the source image's
+// real 1198x684 dimensions with object-contain (not object-cover), so the
+// UI overlay is never cropped or squashed. Not grayscale-filtered here
+// (unlike most other real photos on the site): the mockup's green
+// detection-box color-coding and red status indicators are meaningful UI
+// semantics, not incidental photo color — the same kind of deliberate,
+// reasoned exception already used for SkyScenery.tsx's real sky photo.
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import ReticleFrame from "@/components/ui/ReticleFrame";
 
@@ -26,7 +49,7 @@ export default function HomeAutonomyTeaser() {
         STACK
       </span>
 
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-start">
         <Reveal>
           <p className="label">Autonomy</p>
           <h2 className="mt-3 text-heading font-display text-fg">
@@ -45,64 +68,29 @@ export default function HomeAutonomyTeaser() {
           </a>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <div
-            className="relative mx-auto w-full max-w-sm grayscale"
-            style={{
-              aspectRatio: "4 / 5",
-              background: "radial-gradient(circle, #181818, #080808)",
-            }}
-          >
-            {/* Abstract system-diagram Placeholder_Media (geometric
-                node/pipeline diagram), monochrome only (Requirement 5.1,
-                5.4). Denser than the original 4-node sketch: three labeled
-                pipeline stages (Sense / Decide / Act) each with a small
-                sensor cluster feeding a central processing node, plus a
-                faint background grid for technical-schematic texture. */}
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 200 250"
-              className="absolute inset-0 h-full w-full p-10 text-fg/50"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
+        <Reveal delay={0.12} y={-24}>
+          <div className="mx-auto w-full max-w-xl">
+            <div
+              className="relative w-full border border-grey-800 bg-bg"
+              style={{ aspectRatio: "1198 / 684" }}
             >
-              {/* faint background grid */}
-              <g opacity="0.25" strokeWidth="0.75">
-                <line x1="0" y1="50" x2="200" y2="50" />
-                <line x1="0" y1="100" x2="200" y2="100" />
-                <line x1="0" y1="150" x2="200" y2="150" />
-                <line x1="0" y1="200" x2="200" y2="200" />
-                <line x1="50" y1="0" x2="50" y2="250" />
-                <line x1="150" y1="0" x2="150" y2="250" />
-              </g>
-
-              {/* Sense cluster */}
-              <circle cx="40" cy="45" r="6" />
-              <circle cx="60" cy="30" r="6" />
-              <circle cx="60" cy="60" r="6" />
-              <line x1="46" y1="45" x2="94" y2="60" />
-              <line x1="65" y1="33" x2="94" y2="60" />
-              <line x1="65" y1="57" x2="94" y2="60" />
-
-              {/* Decide (central node) */}
-              <circle cx="100" cy="70" r="16" strokeWidth="2" />
-              <line x1="100" y1="86" x2="100" y2="130" />
-
-              {/* Act cluster */}
-              <rect x="70" y="150" width="24" height="24" />
-              <rect x="106" y="150" width="24" height="24" />
-              <rect x="142" y="150" width="24" height="24" />
-              <line x1="100" y1="130" x2="82" y2="150" />
-              <line x1="100" y1="130" x2="118" y2="150" />
-              <line x1="100" y1="130" x2="154" y2="150" />
-
-              {/* stage labels */}
-              <text x="20" y="20" fontSize="8" fill="currentColor" stroke="none" letterSpacing="1">SENSE</text>
-              <text x="118" y="66" fontSize="8" fill="currentColor" stroke="none" letterSpacing="1">DECIDE</text>
-              <text x="80" y="195" fontSize="8" fill="currentColor" stroke="none" letterSpacing="1">ACT</text>
-            </svg>
-            <ReticleFrame variant="dark" />
+              <Image
+                src="/images/gcs.png"
+                alt="Concept ground-control-station interface showing target tracking and flight commands"
+                fill
+                sizes="(min-width: 768px) 576px, 90vw"
+                className="object-contain"
+              />
+              <ReticleFrame variant="dark" />
+            </div>
+            {/* Simulated_Label (Requirement 8.1 / simulatedLabel.ts
+                convention): explicit, visible disclosure that this is a
+                concept composite, not a live/working system screenshot.
+                Kept directly under the image (not a separately-positioned
+                block) so the two read as one unit. */}
+            <p className="technical-data mt-2 text-center text-muted">
+              Concept interface — in development
+            </p>
           </div>
         </Reveal>
       </div>

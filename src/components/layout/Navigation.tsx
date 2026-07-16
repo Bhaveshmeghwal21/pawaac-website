@@ -190,7 +190,7 @@ export default function Navigation() {
                   aria-current={isActive ? "page" : undefined}
                   aria-haspopup={hasChildren ? "true" : undefined}
                   aria-expanded={hasChildren ? "false" : undefined}
-                  className={`label group relative flex items-center gap-1.5 transition-colors hover:text-fg ${
+                  className={`label group relative flex items-center gap-1.5 !text-white transition-colors hover:text-fg ${
                     isActive ? "text-fg" : "text-muted"
                   }`}
                 >

@@ -14,3 +14,29 @@ import { cleanup } from "@testing-library/react";
 afterEach(() => {
   cleanup();
 });
+
+// jsdom (the test environment) does not implement IntersectionObserver,
+// which framer-motion's `whileInView` prop depends on internally. Any
+// component using `whileInView` (Reveal.tsx, StaggerHeading.tsx, and now
+// Footer.tsx's mission-statement/wordmark entrance) throws
+// "IntersectionObserver is not defined" on mount under jsdom without this
+// stub. Previously only ReducedMotionMatrix.test.tsx defined a local
+// version of this same stub; moved here globally so every test file gets
+// it automatically instead of needing to remember to add its own — this
+// class of failure (a whileInView component breaking an unrelated test
+// file that merely renders it, e.g. via Footer) has already recurred once
+// in this codebase's history.
+class MockIntersectionObserver implements IntersectionObserver {
+  readonly root: Element | null = null;
+  readonly rootMargin: string = "";
+  readonly thresholds: ReadonlyArray<number> = [];
+  observe = () => {};
+  unobserve = () => {};
+  disconnect = () => {};
+  takeRecords = () => [];
+}
+
+if (typeof globalThis.IntersectionObserver === "undefined") {
+  globalThis.IntersectionObserver =
+    MockIntersectionObserver as unknown as typeof IntersectionObserver;
+}

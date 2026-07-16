@@ -70,6 +70,7 @@ import HomePlannerCTA from "@/components/sections/HomePlannerCTA";
 import HomeEnterpriseFraming from "@/components/sections/HomeEnterpriseFraming";
 import HomeCompanyStrip from "@/components/sections/HomeCompanyStrip";
 import HomeContactBand from "@/components/sections/HomeContactBand";
+import HomeClosingVision from "@/components/sections/HomeClosingVision";
 import Footer from "@/components/layout/Footer";
 import SkyScenery from "@/components/ui/SkyScenery";
 
@@ -81,6 +82,9 @@ import SkyScenery from "@/components/ui/SkyScenery";
 // their solid `bg-bg` swapped for a semi-transparent `bg-bg/NN` — see
 // each Home*.tsx section for details; HomeEnterpriseFraming keeps its
 // solid `bg-white` for text-contrast readability on that light section.
+//
+// HomeClosingVision (site-owner request, current session): a 9th section
+// re-added above Footer — see HomeClosingVision.tsx for full rationale.
 export default function Home() {
   return (
     <>
@@ -93,6 +97,7 @@ export default function Home() {
       <HomeEnterpriseFraming />
       <HomeCompanyStrip />
       <HomeContactBand />
+      <HomeClosingVision />
       <Footer />
     </>
   );

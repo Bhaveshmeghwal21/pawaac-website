@@ -9,6 +9,13 @@ import Footer from "./Footer";
 //   Components -> Footer
 
 describe("Footer", () => {
+  it("renders above the shared background with a readable dark-gray surface", () => {
+    render(<Footer />);
+    const footer = screen.getByRole("contentinfo");
+
+    expect(footer).toHaveClass("relative", "z-10", "bg-bg-2");
+  });
+
   it("renders the Careers link pointing to /careers (Requirement 1.3)", () => {
     render(<Footer />);
     const careers = screen.getByRole("link", { name: "Careers" });

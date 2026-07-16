@@ -38,6 +38,6 @@ describe("SkyScenery", () => {
     const img = container.querySelector("img");
 
     expect(img).not.toBeNull();
-    expect(img?.getAttribute("src")).toContain("skyimage2.jpg");
+    expect(img?.getAttribute("src")).toContain("droneInSky.png");
   });
 });

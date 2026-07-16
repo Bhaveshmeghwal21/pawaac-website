@@ -56,20 +56,23 @@ export default function HomeEnterpriseFraming() {
           </a>
         </Reveal>
 
-        <Reveal delay={0.1}>
+        <Reveal delay={0.14} y={-20}>
           <div
-            className="relative mx-auto w-full max-w-sm border border-[#d6d6d6]"
+            className="relative mx-auto w-full max-w-xl border border-[#d6d6d6]"
             style={{ aspectRatio: "16 / 9" }}
           >
             {/* Real, generic (non-identifying) urban/infrastructure scene —
                 grayscale resting-state filter matching every other real
                 photo on the site (Requirement 3.1-3.2). No case reference,
-                no customer/partner identity (OCP-04 stays rejected/as-is). */}
+                no customer/partner identity (OCP-04 stays rejected/as-is).
+                Sized up from max-w-sm (384px) to max-w-xl (576px) per
+                site-owner request to make this image bigger/more
+                prominent. */}
             <Image
               src="/images/rawimage3.jpg"
               alt="Generic urban street and traffic scene representing critical infrastructure"
               fill
-              sizes="(min-width: 768px) 384px, 90vw"
+              sizes="(min-width: 768px) 576px, 90vw"
               className="object-cover grayscale"
             />
             <ReticleFrame variant="light" />

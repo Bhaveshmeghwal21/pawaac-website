@@ -1,3 +1,5 @@
+"use client";
+
 // SkyScenery — site-owner-requested full-bleed decorative background
 // (live visual-preview feedback, not gated by a Change_Proposal since it
 // is pure decoration, no invented facts/numerals).
@@ -20,20 +22,64 @@
 // site (SentrivionHero, HawkAIHero, etc.) keeps its `grayscale` filter.
 //
 // Requirement 10.6: purely decorative, aria-hidden and excluded from the
-// tab order (pointer-events-none). The cloud-drift motion that previously
-// existed here (and its prefers-reduced-motion handling, Requirement 9.8)
-// has been removed along with the CSS cloud blobs — a real photo doesn't
-// need fake CSS clouds layered on top of it, so there is no motion left to
-// gate behind `prefers-reduced-motion` in this component.
+// tab order (pointer-events-none).
 //
-// Rendered once, fixed to the viewport, behind every Homepage section
-// (src/app/page.tsx). Individual sections have had their own opaque
-// backgrounds loosened to semi-transparent so this layer is actually
-// visible scrolling behind them — see page.tsx / Home*.tsx for which
-// sections show it through vs. stay solid.
+// Parallax drift: the photo now drifts slightly slower than page scroll
+// (GSAP + ScrollTrigger, already wired up via LenisProvider for Lenis/GSAP
+// sync but previously unused anywhere on the homepage) — a small
+// translateY scrub tied to document scroll progress, capped well within
+// the image's `fill` overscan so no letterboxing/edge gap is ever exposed.
+// This is what actually sells cinematic depth for the site's dominant
+// full-bleed backdrop; a perfectly static background reads flat by
+// comparison to every foreground section animating on top of it.
+// Gated behind `prefers-reduced-motion: reduce` (Requirement 9.8): the
+// ScrollTrigger is never created under reduced motion, so the layer stays
+// completely static, matching every other motion component's fallback.
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 
 export default function SkyScenery() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const imageWrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion || !imageWrapRef.current) return;
+    // Defensive guard matching usePrefersReducedMotion.ts's own fallback:
+    // ScrollTrigger's setup probes `window.matchMedia` internally, which
+    // jsdom (the test environment) does not implement. Skip creating the
+    // ScrollTrigger entirely in any environment where matchMedia is
+    // unavailable, rather than letting GSAP throw.
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+    const el = imageWrapRef.current;
+
+    const tween = gsap.fromTo(
+      el,
+      { y: -24 },
+      {
+        y: 24,
+        ease: "none",
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+        },
+      },
+    );
+
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, [prefersReducedMotion]);
+
   return (
     <div
       aria-hidden="true"
@@ -47,16 +93,21 @@ export default function SkyScenery() {
           is biased slightly above center so the horizon/sky band (rather
           than foreground ground) reads well across common viewport
           aspect ratios. Local /public path — no next.config.ts
-          remote-image-domain configuration is required. */}
-      <Image
-        src="/images/skyimage2.jpg"
-        alt=""
-        fill
-        sizes="100vw"
-        priority
-        className="object-cover"
-        style={{ objectPosition: "center 35%" }}
-      />
+          remote-image-domain configuration is required.
+          The wrapping div (rather than the Image itself) carries the
+          parallax translateY, oversized via inset:-40px so the drift range
+          above never exposes an edge gap. */}
+      <div ref={imageWrapRef} className="absolute -inset-10">
+        <Image
+          src="/images/droneInSky.png"
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+          style={{ objectPosition: "center 35%" }}
+        />
+      </div>
 
       {/* Faint scan-line overlay kept as a subtle HUD texture on top of the
           real photo — thin, very-low-opacity horizontal bands, achromatic

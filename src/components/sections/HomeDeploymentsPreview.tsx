@@ -5,15 +5,36 @@
 // Design: design.md -> Page Specifications -> Homepage, Section 3
 //         (Deployment sectors preview)
 //
-// Persona: Defense_Police_Persona. Grayscale sector thumbnails (P7) with
-// Label_Caps sector tags (P2), Reveal_On_Scroll entrance (P5). OCP-03
-// (thumbnail treatment: abstract icons vs. generalized photography) stays
-// open — per the gating note, this section uses ABSTRACT ICON placeholders
-// only, never real or generalized facility imagery (Requirement 5.1, 5.4,
-// 8.1). Resolved via site-owner-delegated judgment: an abstract line-art
-// icon is now rendered for every sector tag (defense, police, industrial,
-// infrastructure) so the section reads as a finished icon set rather than
-// two bare placeholder tiles; no real facility imagery was introduced.
+// Persona: Defense_Police_Persona. Real photography sector thumbnails with
+// Label_Caps sector tags (P2), Reveal_On_Scroll entrance (P5).
+//
+// OCP-03 RESOLVED (site-owner decision, current session): the prior
+// abstract-icon-only restriction is explicitly lifted by the site owner.
+// Each sector tile shows a real, commercially-licensed photo instead of an
+// abstract line-art icon. Defense and police tiles use aerial photography
+// specifically per site-owner request (an aerial view fits the
+// "sense from above" framing better than a ground-level shot):
+//   - defense: "Bangalore cantonment (44254283060).jpg" by Kevin Prince,
+//     an aerial view of an Indian Army cantonment area, CC BY-SA 2.0
+//     (https://creativecommons.org/licenses/by-sa/2.0/).
+//   - police: "Downtown hyderabad drone.png" by Shredpave, a drone aerial
+//     view of a major Indian city (Hyderabad), CC0 1.0 Universal Public
+//     Domain Dedication (no attribution required) — paired with "police"
+//     as a city/urban-patrol framing rather than a specific police
+//     facility (no real facility exists to source responsibly).
+//   - industrial: "India industry.jpg" by Abhisek Sarda, CC BY 2.0
+//     (https://creativecommons.org/licenses/by/2.0/).
+//   - infrastructure: "Howrah Bridge view 01.jpg" by Indrajit Das,
+//     CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/).
+// All four sourced from Wikimedia Commons (upload.wikimedia.org), verified
+// license terms permit commercial use; CC BY / CC BY-SA credit given here
+// in code comments per license terms (no on-page attribution UI exists in
+// this component). None of the four depict any Pawaac-specific facility,
+// customer, or deployment location — they are generic, non-identifying
+// sector-representative photos only (still compliant with the "no
+// customer/partner identity disclosed" constraint that motivated the
+// original OCP-03 gating). Grayscale filter applied to match every other
+// real photo on the site (Requirement 3.1-3.2).
 //
 // Task 65 update: Deployments_Page (/deployments) has been removed
 // entirely. Per task 65's decision point, this section keeps its default
@@ -21,53 +42,29 @@
 // link. The "View all deployments" CTA that previously linked to
 // /deployments has been removed; headline, supporting sentence, and
 // visual treatment are otherwise unchanged.
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 
 const SECTORS = [
   {
     tag: "defense",
-    icon: (
-      <svg viewBox="0 0 100 100" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M10 80 L35 30 L65 50 L90 20" strokeDasharray="5 4" />
-        <circle cx="10" cy="80" r="4" />
-        <circle cx="35" cy="30" r="4" />
-        <circle cx="65" cy="50" r="4" />
-        <circle cx="90" cy="20" r="4" />
-      </svg>
-    ),
+    src: "/images/sector-defense.jpg",
+    alt: "Aerial view of an Indian Army cantonment area",
   },
   {
     tag: "police",
-    icon: (
-      <svg viewBox="0 0 100 100" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="50" cy="50" r="4" fill="currentColor" stroke="none" />
-        <circle cx="50" cy="50" r="20" />
-        <circle cx="50" cy="50" r="36" />
-      </svg>
-    ),
+    src: "/images/sector-police.jpg",
+    alt: "Drone aerial view of a major Indian city",
   },
   {
     tag: "industrial",
-    icon: (
-      <svg viewBox="0 0 100 100" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="15" y="55" width="18" height="30" />
-        <rect x="41" y="35" width="18" height="50" />
-        <rect x="67" y="45" width="18" height="40" />
-        <path d="M20 55 L20 40 L28 40 L28 55" />
-      </svg>
-    ),
+    src: "/images/sector-industrial.jpg",
+    alt: "Aerial view of an industrial area near Mumbai, India",
   },
   {
     tag: "infrastructure",
-    icon: (
-      <svg viewBox="0 0 100 100" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M10 75 L50 25 L90 75" />
-        <line x1="30" y1="75" x2="30" y2="52" />
-        <line x1="50" y1="75" x2="50" y2="38" />
-        <line x1="70" y1="75" x2="70" y2="52" />
-        <line x1="10" y1="75" x2="90" y2="75" />
-      </svg>
-    ),
+    src: "/images/sector-infrastructure.jpg",
+    alt: "Howrah Bridge, a major infrastructure landmark in Kolkata, India",
   },
 ];
 
@@ -81,7 +78,7 @@ export default function HomeDeploymentsPreview() {
         <Reveal className="max-w-2xl">
           <p className="label">Defense &amp; police</p>
           <h2 className="mt-3 text-heading font-display text-fg">
-            Where Pawaac operates today
+            Where Pawaac is built to operate
           </h2>
           <p className="mt-4 text-body font-body text-muted">
             Borders, facilities, and critical sites across defense, police,
@@ -91,17 +88,21 @@ export default function HomeDeploymentsPreview() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {SECTORS.map((s, i) => (
-            <Reveal key={s.tag} delay={i * 0.1}>
+            <Reveal key={s.tag} delay={0.05 + i * 0.08}>
               <div
-                aria-hidden="true"
                 className="relative w-full grayscale"
-                style={{
-                  aspectRatio: "16 / 9",
-                  background: "radial-gradient(circle, #181818, #080808)",
-                }}
+                style={{ aspectRatio: "16 / 9" }}
               >
-                <div className="absolute inset-0 p-10 text-fg/50">{s.icon}</div>
-                <span className="label absolute left-4 top-4 text-muted">{s.tag}</span>
+                <Image
+                  src={s.src}
+                  alt={s.alt}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <span className="label absolute left-4 top-4 text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,0.8)]">
+                  {s.tag}
+                </span>
               </div>
             </Reveal>
           ))}

@@ -23,7 +23,7 @@
 // vertical stack, in the same panel order, with no scroll-jacking and no
 // translateX transform.
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
 
 export type SpecPanel = {
@@ -78,8 +78,22 @@ function ScrollJackedTrack({ panels }: { panels: SpecPanel[] }) {
     offset: ["start start", "end end"],
   });
 
+  // Spring-smoothed scroll progress: a raw 1:1 scrollYProgress ->
+  // translateX mapping feels mechanically scroll-locked (panels snap
+  // exactly to scroll position with zero lag/momentum). Feeding
+  // scrollYProgress through a light spring before the translateX transform
+  // gives the horizontal track a small amount of trailing momentum instead,
+  // so panels settle into place rather than rigidly tracking the scrollbar
+  // 1:1. Stiff/damped enough to still feel responsive and to fully resolve
+  // to the same start/end extremes as the raw progress value.
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 260,
+    damping: 32,
+    mass: 0.4,
+  });
+
   const translateX = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     ["0%", `-${(panels.length - 1) * 100}%`]
   );

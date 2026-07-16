@@ -32,7 +32,7 @@ export default function HomeContactBand() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10">
+        <Reveal delay={0.18} className="mt-10">
           <div className="relative mx-auto w-fit border border-grey-800 px-1 py-1">
             <ReticleFrame variant="dark" />
             <a
