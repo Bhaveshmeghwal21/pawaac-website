@@ -14,11 +14,9 @@
 // (OCP-18) stays blocked pending site-owner approval.
 //
 // Positioning/typography/motion pass (site-owner request): the headline
-// moves from a left-aligned mid-frame position to horizontally centered,
-// anchored in the lower third of the frame (below where the drone
-// silhouette sits in the sky photo) — matching a classic cinematic
-// full-bleed-hero layout instead of the previous editorial-left-column
-// layout.
+// is anchored to the site's left content grid in the lower third of the
+// frame, below where the drone silhouette sits in the sky photo — a
+// deliberate cinematic lower-third rather than free-floating centered copy.
 //
 // Follow-up sizing/font pass (site-owner request): the headline was sized
 // too large/dominant relative to the sky photo and drone silhouette, so
@@ -50,7 +48,7 @@ export default function HomeHero() {
     // unobstructed, rather than through a near-opaque dark tint. See
     // SkyScenery.tsx for the corresponding contrast fix that makes the
     // sky itself actually visible.
-    <section className="relative flex min-h-[100dvh] items-end overflow-hidden bg-transparent px-6 pb-24 pt-28 md:pb-32 md:pt-36">
+    <section className="relative flex min-h-[100dvh] items-end overflow-hidden bg-transparent px-6 pb-[14vh] pt-28 md:pb-[16vh] md:pt-36">
       {/* Display_Type oversized word-mark texture behind hero media
           (Pattern 1), purely decorative — hidden from assistive
           technology per Requirement 10.6 */}
@@ -61,10 +59,10 @@ export default function HomeHero() {
         PAWAAC
       </span>
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl text-center">
+      <div className="relative z-10 mx-auto w-full max-w-7xl text-left">
         <HeroHeadline
           text="Autonomous systems that protect what matters"
-          className="font-display text-[clamp(1.75rem,3.8vw,3.5rem)] font-semibold uppercase leading-[1.15] tracking-[0.015em] text-fg [text-shadow:0_2px_16px_rgba(0,0,0,0.6)]"
+          className="max-w-5xl font-display text-[clamp(2.25rem,4.8vw,4.75rem)] font-bold uppercase leading-[0.94] tracking-[-0.035em] text-fg [text-wrap:balance] [text-shadow:0_3px_18px_rgba(0,0,0,0.7)]"
         />
       </div>
     </section>
