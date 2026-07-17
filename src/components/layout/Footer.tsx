@@ -52,16 +52,19 @@ const EXTERNAL_LINKS: { label: string; href: string }[] = [
   { label: "Pawaac Analyser (Beta)", href: "https://analyse.bajrangdrone.tech" },
 ];
 
-// Site-owner request (current session): a closing mission-statement column
-// and an oversized "PAWAAC" wordmark bar are added to this Footer, ported
-// from an earlier/sibling build of this same site
+// Site-owner request (current session): a three-column layout and an
+// oversized "PAWAAC" wordmark bar are added to this Footer, ported from an
+// earlier/sibling build of this same site
 // (D:\LionXdrones\website\pawaac-website\src\components\layout\Footer.tsx)
 // that the site owner pointed to as the reference for "the bottom-most
 // part" of the homepage. That sibling file's link data/labels are NOT used
 // here — this Footer's own INTERNAL_LINKS/EXTERNAL_LINKS/badges/address
 // above are kept as the single source of truth (they're the ones covered
 // by Footer.test.tsx) — only the richer three-column layout and the
-// oversized wordmark bar treatment are ported over.
+// oversized wordmark bar treatment are ported over. The sibling's closing
+// mission-statement line ("Coverage that stays on watch, so critical
+// sites never go dark.") was tried here too but removed per a later
+// site-owner request — the first column now holds only the logo/wordmark.
 //
 // Motion follow-up (site-owner request): the whileInView fade/rise
 // entrance originally applied to all three content columns (mission
@@ -82,9 +85,6 @@ export default function Footer() {
               <Logo className="h-7 w-7" />
               <span className="font-display text-lg font-bold text-fg">PAWAAC</span>
             </div>
-            <p className="mt-6 max-w-md font-display text-2xl font-medium leading-snug tracking-[-0.02em] text-fg md:text-3xl">
-              Coverage that stays on watch, so critical sites never go dark.
-            </p>
           </div>
 
           <nav aria-label="Footer" className="grid content-start gap-3.5">

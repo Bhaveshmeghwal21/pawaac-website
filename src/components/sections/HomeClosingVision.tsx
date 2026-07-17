@@ -22,6 +22,11 @@
 // No Change_Proposal gates this section: the copy below is a mission
 // statement, not a numeral/metric/deployment claim, so nothing here
 // requires OCP-style gating.
+//
+// Headline removal (site-owner request, current session): the section's
+// h2 headline ("Autonomous eyes, so critical sites never go dark.") was
+// removed per explicit request. The "Vision" label and supporting
+// sentence remain; the section itself is unchanged otherwise.
 import Reveal from "@/components/ui/Reveal";
 
 export default function HomeClosingVision() {
@@ -30,9 +35,6 @@ export default function HomeClosingVision() {
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <Reveal>
           <p className="label justify-center">Vision</p>
-          <h2 className="mt-4 text-heading font-display text-fg">
-            Autonomous eyes, so critical sites never go dark.
-          </h2>
           <p className="mx-auto mt-5 max-w-xl text-body font-body text-muted">
             Pawaac exists to make continuous, pilotless coverage the
             default for the places that can least afford a gap in
