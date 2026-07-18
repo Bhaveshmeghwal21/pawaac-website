@@ -126,7 +126,8 @@ export default function Navigation() {
   }, []);
 
   return (
-    <header
+    <>
+      <header
       className={`fixed inset-x-0 top-0 z-[90] transition-colors duration-300 ${
         scrolled
           ? "bg-black/72 backdrop-blur-[16px] border-b border-line"
@@ -252,12 +253,15 @@ export default function Navigation() {
         </button>
       </nav>
 
+      </header>
+
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            data-mobile-menu
             className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-8 bg-bg md:hidden"
           >
             <button
@@ -336,6 +340,6 @@ export default function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

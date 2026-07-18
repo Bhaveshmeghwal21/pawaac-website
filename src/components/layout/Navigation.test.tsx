@@ -2,7 +2,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Navigation from "./Navigation";
 
 // Spec: pawaac-design-language-evolution — Task 36 (follow-up gap closure)
@@ -116,6 +116,22 @@ describe("Navigation", () => {
     expect(topLevelTriggerHrefs).toEqual(
       EXPECTED_PRIMARY_LINK_ITEMS.map((item) => item.href),
     );
+  });
+
+  it("keeps the mobile drawer outside the scrolled header stacking context", () => {
+    render(<Navigation />);
+
+    Object.defineProperty(window, "scrollY", {
+      configurable: true,
+      value: 100,
+    });
+    fireEvent.scroll(window);
+    fireEvent.click(screen.getByRole("button", { name: "Menu" }));
+
+    const drawer = document.querySelector("[data-mobile-menu]");
+    expect(drawer).not.toBeNull();
+    expect(drawer).toHaveClass("fixed", "inset-0");
+    expect(document.querySelector("header")?.contains(drawer)).toBe(false);
   });
 });
 
